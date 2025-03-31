@@ -1,0 +1,47 @@
+{
+  "settings": {
+    "migrated": 6,
+    "iconPacksPath": ".obsidian/icons",
+    "fontSize": 16,
+    "emojiStyle": "native",
+    "iconColor": null,
+    "recentlyUsedIcons": [
+      "LiAlignLeft",
+      "LiAppWindow",
+      "LiAccessibility",
+      "LiArchive"
+    ],
+    "recentlyUsedIconsSize": 5,
+    "rules": [],
+    "extraMargin": {
+      "top": 0,
+      "right": 4,
+      "bottom": 0,
+      "left": 0
+    },
+    "iconInTabsEnabled": false,
+    "iconInTitleEnabled": false,
+    "iconInTitlePosition": "above",
+    "iconInFrontmatterEnabled": false,
+    "iconInFrontmatterFieldName": "icon",
+    "iconColorInFrontmatterFieldName": "iconColor",
+    "iconsBackgroundCheckEnabled": false,
+    "iconsInNotesEnabled": true,
+    "iconsInLinksEnabled": true,
+    "iconIdentifier": ":",
+    "lucideIconPackType": "native",
+    "debugMode": false,
+    "useInternalPlugins": false
+  },
+  "Code/Computer Science (База)/Computer Science (База).md": "LiArchive",
+  "Code/nvim/nvim.md": "LiArchive",
+  "Code/SQL/SQL.md": "LiArchive",
+  "Code/Suffering.md": "LiAccessibility",
+  "Code/tools.md": "LiAppWindow",
+  "Code/usefull resources.md": "LiAppWindow",
+  "Code/Code.md": "LiArchive",
+  "Code/dictionary.md": "LiAlignLeft",
+  "Code/Python/Литература.md": "LiAlignLeft",
+  "Code/SQL/tasks and tables/tasks and tables.md": "LiArchive",
+  "Code/Python/Python.md": "LiArchive"
+}

@@ -1,0 +1,223 @@
+{
+  "main": {
+    "id": "584d5f47f4958b9d",
+    "type": "split",
+    "children": [
+      {
+        "id": "b2acbbef33bae1e8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "91e368e760d14b06",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Code/Python/веб-клиенты и веб-серверы.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "веб-клиенты и веб-серверы"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "bbfab3c61c886812",
+    "type": "split",
+    "children": [
+      {
+        "id": "b16070d0707d456c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3d82c263f29ad969",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": true
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "e16dc563ca0d173f",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "3c59feb8a1a7b77c",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "ebfaeab24156f00a",
+    "type": "split",
+    "children": [
+      {
+        "id": "7e593f2190dddc29",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a08603010f5e33d2",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Code/Python/веб-клиенты и веб-серверы.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for веб-клиенты и веб-серверы"
+            }
+          },
+          {
+            "id": "fb6c5dbdfc0e906e",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Code/Python/веб-клиенты и веб-серверы.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from веб-клиенты и веб-серверы"
+            }
+          },
+          {
+            "id": "fae546384eede304",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "1e9ba01ac11942d1",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Code/Python/веб-клиенты и веб-серверы.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of веб-клиенты и веб-серверы"
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "obsidian-importer:Open Importer": false,
+      "obsidian-kanban:Create new board": false
+    }
+  },
+  "active": "3d82c263f29ad969",
+  "lastOpenFiles": [
+    "README.md",
+    "Code/Python/socket.md",
+    "Code/Python/Python.md",
+    "Code/Python/веб-клиенты и веб-серверы.md",
+    "Code/Suffering.md",
+    "Диплом/Project Proposal.md",
+    "Диплом/Диплом.md",
+    "Диплом/Заметки.md",
+    "Диплом/Литература.md",
+    "Диплом/Литература/De-Anthropocentrized Externalism.md",
+    "Диплом/Литература/The Technological Lifeworld.md",
+    "Диплом/Литература/Reality+.md",
+    "Диплом/Литература/How Technology Changes Us.md",
+    "Диплом/pp_old.md",
+    "Диплом/Литература/The role of technologies in social development of society.md",
+    "Диплом/Литература/Становление личности в коммуникативной среде современной культуры.md",
+    "Диплом/Литература/AI and Epistemic Agency How AI Influences Belief Revision and Its Normative Implications.md",
+    "Диплом/Литература/Epistemology and Active Externalism.md",
+    "Диплом/Литература/Active externalism, virtue reliabilism and scientific knowledge.md",
+    "Диплом/Литература/Extended Knowledge and Social Epistemology.md",
+    "Диплом/Литература/The Extended Mind.md",
+    "Диплом/Литература/David Chalmers on Reality+.md",
+    "template/New article.md",
+    "Code/nvim/nvim.md",
+    "Code/Python/Литература.md",
+    "Code/Python/install python debian.md",
+    "template",
+    "Диплом 1/Задачки",
+    "Диплом/Литература",
+    "Диплом",
+    "Диплом",
+    "Untitled.canvas",
+    "Code/SQL/Untitled.canvas",
+    "Code/Media_Code/sockets-tcp-flow.1da426797e37.avif",
+    "Code/Media_Code/Ящик_с_усами.png",
+    "Code/Media_Code/Линейная_диаграмма.png",
+    "Code/Media_Code/лево_и_право.png",
+    "Code/Media_Code/Круговая_диограмма.png",
+    "Code/Media_Code/Гистограмма_распределения.png",
+    "Code/Media_Code/Столбчатая_диограмма.png",
+    "Code/Media_Code",
+    "Code/leetcode/Задачки",
+    "Code/SQL/tasks and tables",
+    "Code/SQL/JOIN",
+    "Code/Python/pandas",
+    "Untitled 1.canvas"
+  ]
+}

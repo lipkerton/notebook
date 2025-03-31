@@ -1,0 +1,6 @@
+- [[Code/Python/Литература|Литература]]
+- [[pandas]]
+- [[socket]]
+- [[context manager]]
+- [[install python debian]]
+- [[веб-клиенты и веб-серверы]]
