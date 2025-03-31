@@ -107,6 +107,8 @@ Link: https://drive.google.com/file/d/1lvLMvdmjX1hf_mooBhO8Skj_LLzXiUrE/view?usp
 
 > In both cases [Inga\Otto] the information is reliably there when needed, available to consciousness and available to guide action, in just the way that we expect a belief to be. (стр. 13)
 
+^995fbc
+
 > If we must resort to explaining Otto’s action this way [his book being involved], then we must also do so for the countless other actions in which his notebook is involved; in each of the explanations, there will be an extra term involving the notebook. (стр. 13)
 
 > The notebook is a constant for Otto, in the same way that memory is a constant for Inga; to point to it in every belief/desire explanation would be redundant. In an explanation, simplicity is power. (стр. 13)
