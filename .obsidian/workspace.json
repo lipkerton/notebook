@@ -13,12 +13,54 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Code/Python/веб-клиенты и веб-серверы.md",
+                "file": "Диплом/Заметки.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "веб-клиенты и веб-серверы"
+              "title": "Заметки"
+            }
+          },
+          {
+            "id": "4be2c0b25ff903ad",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Диплом/Литература/The Extended Mind.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "The Extended Mind"
+            }
+          },
+          {
+            "id": "35d7a3b64869428e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Диплом/Литература/Epistemology and Active Externalism.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Epistemology and Active Externalism"
+            }
+          },
+          {
+            "id": "9f46d4c3bd6adf90",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Диплом/Заметки.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Заметки"
             }
           }
         ]
@@ -94,7 +136,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Диплом/Литература/Жизнь 3.0. Быть человеком в эпоху искусственного интеллекта.md",
+                "file": "Code/Python/веб-клиенты и веб-серверы.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +146,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Жизнь 3.0. Быть человеком в эпоху искусственного интеллекта"
+              "title": "Backlinks for веб-клиенты и веб-серверы"
             }
           },
           {
@@ -113,12 +155,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Диплом/Литература/Жизнь 3.0. Быть человеком в эпоху искусственного интеллекта.md",
+                "file": "Code/Python/веб-клиенты и веб-серверы.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Жизнь 3.0. Быть человеком в эпоху искусственного интеллекта"
+              "title": "Outgoing links from веб-клиенты и веб-серверы"
             }
           },
           {
@@ -142,13 +184,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Диплом/Литература/Жизнь 3.0. Быть человеком в эпоху искусственного интеллекта.md",
+                "file": "Code/Python/веб-клиенты и веб-серверы.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Жизнь 3.0. Быть человеком в эпоху искусственного интеллекта"
+              "title": "Outline of веб-клиенты и веб-серверы"
             }
           }
         ],
@@ -173,33 +215,32 @@
   },
   "active": "91e368e760d14b06",
   "lastOpenFiles": [
-    "Code/Python/socket.md",
-    "Code/Python/wsgi.md",
-    "Code/Python/Python.md",
-    "Python/wsgi.md",
-    "Python",
-    "Code/Python/Литература.md",
-    "Code/Computer Science (База)/Сети.md",
-    "Code/Computer Science (База)/Паттерны обмена сообщениями.md",
-    "Code/Python/pandas.md",
-    "Code/Python/context manager.md",
-    "Code/Python/веб-клиенты и веб-серверы.md",
-    "Code/dictionary.md",
-    "Code/usefull resources.md",
-    "Code/tools.md",
-    "Code/SQL/связи между таблицами.md",
-    "Code/SQL/tasks and tables/Про авторов и книжки.md",
-    "Code/SQL/tasks and tables/tasks and tables.md",
-    "Code/SQL/группировки.md",
-    "Code/SQL/tasks and tables/Про ебучих птиц.md",
-    "Диплом/Project Proposal.md",
+    "Заметки.pdf",
+    "Диплом/Литература.md",
+    "Диплом/Литература/Empiricism for cyborgs.md",
     "Диплом/Заметки.md",
+    "Диплом/Литература/Epistemology and Active Externalism.md",
+    "Диплом/Литература/AI and Epistemic Agency How AI Influences Belief Revision and Its Normative Implications.md",
+    "Диплом/Литература/Active externalism, virtue reliabilism and scientific knowledge.md",
     "Диплом/Литература/Neuromedia, extended knowlage and understanding.md",
     "Диплом/Литература/The Extended Mind.md",
-    "Диплом/Литература/The Technological Lifeworld.md",
-    "Диплом/Литература/David Chalmers on Reality+.md",
-    "Диплом/Литература/Reality+.md",
+    "Code/SQL/связи между таблицами.md",
+    "Code/Python/wsgi.md",
+    "Диплом/Project Proposal.md",
     "Диплом/Литература/Extended Knowledge and Social Epistemology.md",
+    "Диплом/Литература/The Technological Lifeworld.md",
+    "Диплом/Литература/Альтернативные философские методологии для когнитивной психологии- Эрнст Мах и Эдмунд Гуссерль.md",
+    "Диплом/Литература/Анализ ощущений.md",
+    "Диплом/Литература/Базовая математика для искусственного интеллекта.md",
+    "Диплом/Литература/Жизнь 3.0. Быть человеком в эпоху искусственного интеллекта.md",
+    "Диплом/Литература/Смысл, субъектность и ответственность в цифровых коммуникациях.md",
+    "Диплом/Литература/Становление личности в коммуникативной среде современной культуры.md",
+    "Диплом/Литература/Эрнст Мах и Пьер Дюгем- проекция позитивистской философской доктрины на историографию науки.md",
+    "Диплом/Литература/Artificial Intelligence.md",
+    "Диплом/Литература/The role of technologies in social development of society.md",
+    "Диплом/Литература/The Case for Mach’s Neutral Monism.md",
+    "Диплом/Литература/Mach’s Neutral Monism.md",
+    "Code/Python/веб-клиенты и веб-серверы.md",
     "template",
     "Диплом 1/Задачки",
     "Диплом/Литература",
@@ -218,6 +259,7 @@
     "Code/leetcode/Задачки",
     "Code/SQL/tasks and tables",
     "Code/SQL/JOIN",
+    "Code/Python/pandas",
     "Untitled 1.canvas"
   ]
 }
