@@ -1,1 +1,6 @@
-{}
+{
+  "theme": "obsidian",
+  "accentColor": "#b3a5cf",
+  "cssTheme": "AnuPpuccin",
+  "baseFontSize": 18
+}

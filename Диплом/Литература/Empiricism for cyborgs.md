@@ -69,6 +69,8 @@ Link: https://drive.google.com/file/d/1SNWZ2eENm1h1C0WEeVEFUsHKrGVZ6VVA/view?usp
 
 > Parity principle: If, as we confront some task, a part of the world functions as a process which, were it done in the head, we would have no hesitation in recognizing as part of the cognitive process, then that part of the world is (so we claim) part of the cognitive process. (стр. 413)
 
+^f43e2e
+
 > Rather than providing a means of distinguishing cognitive and noncognitive processes, the parity principle is intended to act as a heuristic device, encouraging us to abandon our prejudices regarding where cognition is located and form judgments about what counts as cognition behind what Clark calls a “veil of metabolic ignorance” (2008, p. 114). (стр. 414)
 
 > Clark himself, appeal instead to our intuitive sense of what counts as a cognitive process. For the purposes of this paper, I will follow Clark’s approach and draw upon our intuitive judgments regarding cognition. (стр. 414)

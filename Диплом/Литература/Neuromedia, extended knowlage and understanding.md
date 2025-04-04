@@ -105,6 +105,8 @@ Link:
 
 > UNDERSTANDING: S understands that p to the degree that S believes that p, that belief coheres with a set of relevant beliefs, that coherence is reflectively accessible to S, those beliefs are true, and S has the capacity to deduce the actual and counterfactual consequences of her belief that p both singly and in conjunction with other possible premises. (стр. 309)
 
+^ed14da
+
 > One’s capacity to ask good questions itself hinges, at least in part, on a simpler (and less overtly verbally orientated) capacity: the capacity for making inferences and drawing out a position’s consequences. (стр. 309)
 
 > Yet on the other hand, there is also a fairly clear worry: that the more we enhance our ability to passively receive information, the more we risk undermining understanding. Understanding itself involves more than passive belief, it involves active inquiry. Implicit recognition of these facts is why we can have mixed reactions to not only neuromedia, but to the technology we already have in our pockets. (стр. 310)
