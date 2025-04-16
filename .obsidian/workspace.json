@@ -8,7 +8,35 @@
         "type": "tabs",
         "children": [
           {
-            "id": "91e368e760d14b06",
+            "id": "04a829ab662070a7",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Диплом/Литература/Empiricism for cyborgs.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Empiricism for cyborgs"
+            }
+          },
+          {
+            "id": "cbac6f5ca3ccbb60",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Диплом/Литература/Epistemology and Active Externalism.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Epistemology and Active Externalism"
+            }
+          },
+          {
+            "id": "9ca60310e9b11079",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -22,17 +50,17 @@
             }
           },
           {
-            "id": "9ca60310e9b11079",
+            "id": "50c3d18db82067ac",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Диплом/Литература/Active externalism, virtue reliabilism and scientific knowledge.md",
+                "file": "Диплом/Литература/De-Anthropocentrized Externalism.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Active externalism, virtue reliabilism and scientific knowledge"
+              "title": "De-Anthropocentrized Externalism"
             }
           }
         ]
@@ -185,25 +213,27 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "91e368e760d14b06",
+  "active": "3d82c263f29ad969",
   "lastOpenFiles": [
-    "Project Proposal.pdf",
+    "Диплом/pp_old.md",
+    "pp_old.pdf",
+    "Диплом/Литература/Empiricism for cyborgs.md",
+    "Диплом/Литература/Epistemology and Active Externalism.md",
     "Диплом/literature review.md",
-    "literature review.pdf",
     "Диплом/Литература/Active externalism, virtue reliabilism and scientific knowledge.md",
-    "Диплом/Литература/Extended Knowledge and Social Epistemology.md",
+    "Диплом/Литература/The Extended Mind.md",
+    "Диплом/Литература/De-Anthropocentrized Externalism.md",
     "Диплом/Project Proposal.md",
+    "Project Proposal.pdf",
+    "literature review.pdf",
+    "Диплом/Литература/Extended Knowledge and Social Epistemology.md",
     "Диплом/Литература/Artificial Intelligence, Creativity, and Intentionality.md",
     "Диплом/Литература/AI, agency and responsibility.md",
     "Диплом/Литература.md",
     "Диплом/Литература/Creativity, Agency, and AI.md",
-    "Диплом/Литература/Empiricism for cyborgs.md",
     "Диплом/Литература/AI and Epistemic Agency How AI Influences Belief Revision and Its Normative Implications.md",
-    "Диплом/Литература/The Extended Mind.md",
-    "Диплом/Литература/De-Anthropocentrized Externalism.md",
     "Диплом/Литература/Making AI Intelligible.md",
     "Диплом/Литература/Artificial Intelligence.md",
-    "Диплом/pp_old.md",
     "Code/SQL/группировки.md",
     "Code/SQL/SQL.md",
     "Code/SQL/JOIN.md",
@@ -213,7 +243,6 @@
     "Диплом/Заметки.md",
     "Code/SQL/выбираем данные из таблички.md",
     "Заметки.pdf",
-    "Диплом/Литература/Epistemology and Active Externalism.md",
     "Диплом/Литература/Neuromedia, extended knowlage and understanding.md",
     "template",
     "Диплом 1/Задачки",
@@ -230,7 +259,6 @@
     "Code/Media_Code/Гистограмма_распределения.png",
     "Code/Media_Code/Столбчатая_диограмма.png",
     "Code/Media_Code",
-    "Code/leetcode/Задачки",
     "Untitled 1.canvas"
   ]
 }
