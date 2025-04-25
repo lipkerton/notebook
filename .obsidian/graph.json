@@ -20,6 +20,20 @@
         "a": 1,
         "rgb": 14069084
       }
+    },
+    {
+      "query": "path:decks  ",
+      "color": {
+        "a": 1,
+        "rgb": 11657298
+      }
+    },
+    {
+      "query": "path:template  ",
+      "color": {
+        "a": 1,
+        "rgb": 3180966
+      }
     }
   ],
   "collapse-display": false,
@@ -28,10 +42,10 @@
   "nodeSizeMultiplier": 1,
   "lineSizeMultiplier": 1,
   "collapse-forces": false,
-  "centerStrength": 0,
-  "repelStrength": 10,
-  "linkStrength": 0.496539792387543,
+  "centerStrength": 0.375432525951557,
+  "repelStrength": 20,
+  "linkStrength": 0.503460207612457,
   "linkDistance": 30,
-  "scale": 0.5783939740339749,
-  "close": true
+  "scale": 0.20989186765686957,
+  "close": false
 }

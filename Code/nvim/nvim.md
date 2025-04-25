@@ -1,2 +1,2 @@
-- [[двигаем строки]]
-- [[PYTHON VERSIONS]]
+[[двигаем строки]]
+[[PYTHON VERSIONS]]

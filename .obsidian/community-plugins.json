@@ -2,5 +2,6 @@
   "obsidian-importer",
   "obsidian-kanban",
   "obsidian-icon-folder",
-  "dataview"
+  "dataview",
+  "obsidian-to-anki-plugin"
 ]

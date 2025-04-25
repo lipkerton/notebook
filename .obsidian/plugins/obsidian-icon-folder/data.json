@@ -43,5 +43,12 @@
   "Code/dictionary.md": "LiAlignLeft",
   "Code/Python/Литература.md": "LiAlignLeft",
   "Code/SQL/tasks and tables/tasks and tables.md": "LiArchive",
-  "Code/Python/Python.md": "LiArchive"
+  "Code/Python/Python.md": "LiArchive",
+  "Code/leetcode/Suffering x200.md": "LiAccessibility",
+  "Code/algorithms/algorithms.md": "LiArchive",
+  "Диплом/Диплом.md": "LiArchive",
+  "decks/decks.md": "LiArchive",
+  "Code/leetcode/leetcode.md": "LiArchive",
+  "Code/Python/Django/Django.md": "LiArchive",
+  "Code/Python/Flask/Flask.md": "LiArchive"
 }
