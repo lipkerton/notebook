@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Code/SQL/оптимизация PostgreSQL.md",
+                "file": "decks/NetworkBasicsDeck.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "оптимизация PostgreSQL"
+              "title": "NetworkBasicsDeck"
             }
           }
         ],
@@ -189,20 +189,25 @@
   },
   "active": "e4880b60b7842642",
   "lastOpenFiles": [
+    "decks/pythonDeck.md",
     "decks/PostgreSQL+SQLDeck.md",
+    "decks/crawlerDeck.md",
+    "decks/socketDeck.md",
+    "decks/NetworkBasicsDeck.md",
+    "decks/FlaskDeck.md",
+    "decks/decks.md",
+    "crawlerDeck.md",
+    "Code/Python/scrapy.md",
     "Code/SQL/оптимизация PostgreSQL.md",
+    "Untitled Kanban.md",
     "Code/SQL/связи между таблицами.md",
     "Code/SQL/SQL.md",
     "Code/SQL/JOIN.md",
     "Code/SQL/крутые функции.md",
     "Code/SQL/группировки.md",
-    "decks/NetworkBasicsDeck.md",
-    "decks/pythonDeck.md",
-    "decks/socketDeck.md",
     "Code/Python/venv pipenv virtualenv.md",
     "build-your-own-x.md",
     "Code/Python/Python.md",
-    "decks/decks.md",
     "Code/Python/socket.md",
     "Code/Python/wsgi.md",
     "Code/Python/Flask/Flask.md",
@@ -210,11 +215,6 @@
     "Диплом/Литература/The Extended Mind.md",
     "Диплом/pp_old.md",
     "Диплом/Заметки.md",
-    "Диплом/Литература/De-Anthropocentrized Externalism.md",
-    "Диплом/Литература/Epistemology and Active Externalism.md",
-    "Диплом/Литература/Active externalism, virtue reliabilism and scientific knowledge.md",
-    "Диплом/Project Proposal.md",
-    "Диплом/Литература.md",
     "Code/Python/Flask",
     "Code/Python/Django",
     "Code/algorithms",

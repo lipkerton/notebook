@@ -118,7 +118,7 @@
     "Code/SQL/tasks and tables/Про авторов и книжки.md": "3adca0473aafc604767ac5d889c7d88c",
     "Code/SQL/tasks and tables/Про ебучих птиц.md": "54cfc1344918faf723447fc09f799c0a",
     "Code/SQL/tasks and tables/tasks and tables.md": "1dd1056fdf92fb1b18024ba12b2a9510",
-    "Code/SQL/SQL.md": "83c3b0d96d34a532af0a79b71fa8db4f",
+    "Code/SQL/SQL.md": "b8f85569aceecc0dad3d22e0bc23c221",
     "Code/SQL/JOIN.md": "2359bdf09b961ceec5fabf3f84b265a9",
     "Code/Python/context manager.md": "808ef0780e1841fff11ea652647ea2e7",
     "Code/Python/install python debian.md": "8b50edbf40d8662da1702d208f2e265b",
@@ -143,8 +143,8 @@
     "Code/Code.md": "07dbc1224d0b7173c9fdb2ca6387e7c9",
     "decks/NetworkBasics.md": "86234858125080fbf85d20a54a426c91",
     "decks/FlaskDeck.md": "9fe21854426f9d192e89804ac7da2719",
-    "decks/NetworkBasicsDeck.md": "cba06cbecf8c3eb965ea6e33fd7d645b",
-    "decks/decks.md": "673d0f9639da47e6f9eae776b24afecf",
+    "decks/NetworkBasicsDeck.md": "b96c1040ba70b5a020533f54f665a7c6",
+    "decks/decks.md": "bfb4f626326868c19cf62ec7ba6dbffa",
     "Code/algorithms/algorithms.md": "3fbd6a5462c25014b85bf7305df69d53",
     "Code/algorithms/бинарный поиск.md": "d41d8cd98f00b204e9800998ecf8427e",
     "Code/Python/Flask/getting started.md": "b376082ca26f33d764ad19aaf745a39e",
@@ -155,9 +155,12 @@
     "build-your-own-x.md": "d41d8cd98f00b204e9800998ecf8427e",
     "template/template.md": "b2f2691e5014795a0c427eeb4a440246",
     "decks/socketDeck.md": "19aaf1c541d82d08b8d239e0bca988c4",
-    "decks/PostgreSQL+SQLDeck.md": "330a33f23eff6e7da1be689efd8d2e52",
+    "decks/PostgreSQL+SQLDeck.md": "4b54bb02f0396a80f350dfaffb842b1e",
     "decks/pythonDeck.md": "59327fca86465d92f3e5f69efbf4ee7c",
-    "Code/Python/venv pipenv virtualenv.md": "42fef445e6153ff66f0fd3bff5d953d8"
+    "Code/Python/venv pipenv virtualenv.md": "42fef445e6153ff66f0fd3bff5d953d8",
+    "decks/crawlerDeck.md": "3dba69f81fc943119678268a15c7cc07",
+    "Code/SQL/оптимизация PostgreSQL.md": "a9a0021dd26cb0607da7af2803bf4352",
+    "Code/Python/scrapy.md": "586ad09a49618519f341eb06e8e06548"
   },
   "fields_dict": {
     "Задание с пропусками": [

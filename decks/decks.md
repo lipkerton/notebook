@@ -3,3 +3,4 @@
 [[/decks/socketDeck|socketDeck]]
 [[decks/PostgreSQL+SQLDeck|PostgreSQL+SQLDeck]]
 [[decks/pythonDeck|pythonDeck]]
+[[decks/crawlerDeck|crawlerDeck]]
