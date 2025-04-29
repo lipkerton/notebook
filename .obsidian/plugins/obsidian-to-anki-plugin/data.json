@@ -155,8 +155,13 @@
     "build-your-own-x.md": "d41d8cd98f00b204e9800998ecf8427e",
     "template/template.md": "b2f2691e5014795a0c427eeb4a440246",
     "decks/socketDeck.md": "19aaf1c541d82d08b8d239e0bca988c4",
+<<<<<<< Updated upstream
     "decks/PostgreSQL+SQLDeck.md": "8f3fe8e944a978e371cd85d6a84e4352",
     "decks/pythonDeck.md": "59327fca86465d92f3e5f69efbf4ee7c",
+=======
+    "decks/PostgreSQL+SQLDeck.md": "4b54bb02f0396a80f350dfaffb842b1e",
+    "decks/pythonDeck.md": "6b00523925bac716bf50bc4aa26294b1",
+>>>>>>> Stashed changes
     "Code/Python/venv pipenv virtualenv.md": "42fef445e6153ff66f0fd3bff5d953d8",
     "Code/SQL/оптимизация PostgreSQL.md": "a9a0021dd26cb0607da7af2803bf4352",
     "Code/Python/unittest.md": "5a9eea9f3f6d179196095fe4afe021bc",

@@ -189,8 +189,11 @@
   },
   "active": "e4880b60b7842642",
   "lastOpenFiles": [
+<<<<<<< Updated upstream
     "Диплом/Литература/The Philosophy of Creativity.md",
     "Code/Python/unittest doctest nose.md",
+=======
+>>>>>>> Stashed changes
     "decks/PostgreSQL+SQLDeck.md",
     "decks/socketDeck.md",
     "decks/pythonDeck.md",
@@ -215,6 +218,11 @@
     "Code/Python/wsgi.md",
     "Code/Python/Flask/Flask.md",
     "Code/Python/pandas.md",
+<<<<<<< Updated upstream
+=======
+    "Диплом/Литература/The Extended Mind.md",
+    "Диплом/pp_old.md",
+>>>>>>> Stashed changes
     "Code/Python/Flask",
     "Code/Python/Django",
     "Code/algorithms",
