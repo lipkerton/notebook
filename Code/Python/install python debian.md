@@ -47,8 +47,7 @@ sudo apt install -y make build-essential \
 
 ## как получить питон?
 
-Нужно просто скачать его через `wget` .
-
+Нужно просто скачать его через `wget.
 ```Bash
 wget https://www.python.org/ftp/python/3.13.1/Python-3.13.1.tgz
 ```
