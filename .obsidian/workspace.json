@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Диплом/Литература/The Philosophy of Creativity.md",
+                "file": "Диплом/Литература/Making AI Intelligible.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "The Philosophy of Creativity"
+              "title": "Making AI Intelligible"
             }
           }
         ]
@@ -174,14 +174,15 @@
   },
   "active": "1a48bdf098713ac8",
   "lastOpenFiles": [
+    "Диплом/Литература.md",
+    "Диплом/literature review.md",
+    "Диплом/Литература/Making AI Intelligible.md",
+    "Диплом/Литература/The Philosophy of Creativity.md",
     "Диплом/Литература/The Extended Mind.md",
     "Диплом/Литература/AI and Epistemic Agency How AI Influences Belief Revision and Its Normative Implications.md",
     "Untitled Kanban.md",
     "Диплом/Диплом.md",
     "Диплом/Заметки.md",
-    "Диплом/literature review.md",
-    "Диплом/Литература.md",
-    "Диплом/Литература/The Philosophy of Creativity.md",
     "decks/PostgreSQL+SQLDeck.md",
     "Code/Python/unittest doctest nose.md",
     "Code/Python/socket.md",
@@ -199,7 +200,6 @@
     "Code/Python/Django/Django.md",
     "Code/Python/venv pipenv virtualenv.md",
     "decks/pythonDeck.md",
-    "Code/SQL/оптимизация PostgreSQL.md",
     "decks",
     "Code/algorithms",
     "Code/Python/Flask",
