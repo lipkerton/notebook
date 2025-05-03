@@ -8,3 +8,6 @@
 [[Code/Python/wsgi|wsgi]]
 [[Django]]
 [[Flask]]
+[[scrapy]]
+[[отладка]]
+[[logging]]
