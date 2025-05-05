@@ -50,5 +50,7 @@
   "decks/decks.md": "LiArchive",
   "Code/leetcode/leetcode.md": "LiArchive",
   "Code/Python/Django/Django.md": "LiArchive",
-  "Code/Python/Flask/Flask.md": "LiArchive"
+  "Code/Python/Flask/Flask.md": "LiArchive",
+  "Code/Python/парсинг и работа с сырой сетью/парсинг и работа с сырой сетью.md": "LiArchive",
+  "Code/Python/асинхронность/асинхронность.md": "LiArchive"
 }
