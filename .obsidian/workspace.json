@@ -11,16 +11,14 @@
             "id": "8487dea243c72953",
             "type": "leaf",
             "state": {
-              "type": "kanban",
+              "type": "markdown",
               "state": {
-                "file": "Untitled Kanban.md",
-                "kanbanViewState": {
-                  "kanban-plugin": "board",
-                  "list-collapse": []
-                }
+                "file": "Диплом/Литература/Agency.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-trello",
-              "title": "Untitled Kanban"
+              "icon": "lucide-file",
+              "title": "Agency"
             }
           }
         ]
@@ -176,20 +174,23 @@
   },
   "active": "8487dea243c72953",
   "lastOpenFiles": [
+    "Диплом/literature review.md",
+    "Диплом/Литература/Agency.md",
+    "Диплом/Заметки.md",
+    "Диплом/Литература/The Philosophy of Creativity.md",
+    "decks/pythonDeck.md",
+    "Code/Python/парсинг и работа с сырой сетью/socket.md",
+    "Диплом/Литература.md",
+    "Untitled Kanban.md",
     "Code/Python/парсинг и работа с сырой сетью/парсинг и работа с сырой сетью.md",
     "Code/Python/парсинг и работа с сырой сетью/веб-клиенты и веб-серверы.md",
     "Code/Python/парсинг и работа с сырой сетью/wsgi.md",
-    "Code/Python/парсинг и работа с сырой сетью/socket.md",
     "Code/Python/парсинг и работа с сырой сетью/scrapy.md",
     "Code/Python/парсинг и работа с сырой сетью/http.md",
     "Code/Python/парсинг и работа с сырой сетью",
     "Code/Python/асинхронность/асинхронность.md",
     "Code/Python/асинхронность/GIL.md",
     "Code/Python/асинхронность",
-    "Диплом/Литература/Agency.md",
-    "Untitled Kanban.md",
-    "Диплом/Литература.md",
-    "Диплом/literature review.md",
     "Code/Python/веб-клиенты и веб-серверы.md",
     "Code/SQL/представления.md",
     "Code/SQL/оптимизация PostgreSQL.md",
@@ -198,12 +199,9 @@
     "Code/SQL/крутые функции.md",
     "Диплом/Литература/Creativity, Agency, and AI.md",
     "decks/NetworkBasicsDeck.md",
-    "decks/pythonDeck.md",
     "decks/decks.md",
     "decks/FlaskDeck.md",
     "Code/Python/logging.md",
-    "Code/Python/Python.md",
-    "Code/SQL/связи между таблицами.md",
     "decks",
     "Code/algorithms",
     "Code/Python/Flask",
