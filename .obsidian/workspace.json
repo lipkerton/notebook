@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Code/SQL/представления.md",
+                "file": "Code/Python/Django/настройка путей.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "представления"
+              "title": "настройка путей"
             }
           },
           {
@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Диплом/Литература.md",
+                "file": "Code/nvim/копирование.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Литература"
+              "title": "копирование"
             }
           },
           {
@@ -49,8 +49,7 @@
               "title": "http"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -171,13 +170,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Диплом/Литература.md",
+                "file": "Code/Python/Django/настройка путей.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Литература"
+              "title": "Outline of настройка путей"
             }
           }
         ],
@@ -200,35 +199,36 @@
       "obsidian-to-anki-plugin:Obsidian_to_Anki - Scan Vault": false
     }
   },
-  "active": "e4880b60b7842642",
+  "active": "ffd08f4a00bed465",
   "lastOpenFiles": [
-    "Диплом/Литература/Agency.md",
-    "Диплом/Литература/Making AI Intelligible.md",
+    "Code/Python/Django/создание проекта и приложения.md",
+    "Code/Python/Django/настройка путей.md",
+    "Code/Computer Science (База)/URL.md",
+    "Code/nvim/копирование.md",
+    "decks/pythonDeck.md",
+    "Code/Python/Django/Django.md",
+    "Code/Python/ООП/магические методы.md",
+    "Code/Python/ООП/принципы ООП.md",
+    "Code/Suffering.md",
+    "Code/tools.md",
+    "Code/Python/ООП/именованные кортежи.md",
+    "Диплом/Литература/Active externalism, virtue reliabilism and scientific knowledge.md",
+    "Диплом/Литература/AI and Epistemic Agency How AI Influences Belief Revision and Its Normative Implications.md",
+    "Диплом/Литература/AI, agency and responsibility.md",
+    "Диплом/Литература/Artificial Intelligence.md",
+    "Диплом/Литература/Artificial Intelligence, Creativity, and Intentionality.md",
+    "Диплом/Литература/Creativity, Agency, and AI.md",
+    "Диплом/Литература/Extended Knowledge and Social Epistemology.md",
+    "Диплом/Литература/Epistemology and Active Externalism.md",
+    "decks/socketDeck.md",
+    "Code/Python/ООП/ООП.md",
+    "Code/SQL/выбираем данные из таблички.md",
     "Диплом/Литература.md",
     "Диплом/Диплом.md",
-    "Диплом/Литература/De-Anthropocentrized Externalism.md",
-    "Диплом/Литература/Extended Knowledge and Social Epistemology.md",
-    "Диплом/Заметки.md",
-    "Диплом/Project Proposal.md",
-    "Диплом/pp_old.md",
-    "Диплом/literature review.md",
-    "Диплом/Литература/AI and Epistemic Agency How AI Influences Belief Revision and Its Normative Implications.md",
-    "Диплом/Литература/Active externalism, virtue reliabilism and scientific knowledge.md",
-    "Диплом/Литература/AI, agency and responsibility.md",
-    "Code/Suffering.md",
-    "decks/pythonDeck.md",
-    "decks/socketDeck.md",
-    "Code/Python/асинхронность/GIL.md",
-    "Code/Python/асинхронность/асинхронность.md",
-    "Code/Python/парсинг и работа с сырой сетью/парсинг и работа с сырой сетью.md",
-    "Code/Python/Python.md",
-    "Code/Python/install python debian.md",
-    "Code/SQL/JOIN.md",
-    "Code/dictionary.md",
-    "Code/Code.md",
-    "decks/PostgreSQL+SQLDeck.md",
+    "Диплом/Литература/The Extended Mind.md",
+    "Code/Python/venv pipenv virtualenv.md",
+    "Code/Python/ООП",
     "Code/Python/асинхронность",
-    "Code/SQL/связи между таблицами.md",
     "Code/Python/парсинг и работа с сырой сетью",
     "Code/Python/Flask",
     "Code/Python/Django",
@@ -238,7 +238,6 @@
     "Заметки.pdf",
     "Python",
     "template",
-    "Диплом 1/Задачки",
     "Code/SQL/Untitled.canvas",
     "Code/Media_Code/sockets-tcp-flow.1da426797e37.avif",
     "Code/Media_Code/Ящик_с_усами.png",
