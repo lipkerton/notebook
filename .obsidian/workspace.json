@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "bda0ab6a2a6165b8",
+        "id": "2636c136b187e154",
         "type": "tabs",
         "children": [
           {
-            "id": "8487dea243c72953",
+            "id": "46f9fb56a01ab887",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Code/JavaScript/getting started.md",
+                "file": "Code/Python/ООП/магические методы.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "getting started"
+              "title": "магические методы"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Code/Python/веб-клиенты и веб-серверы.md",
+                "file": "Диплом/Литература/Жизнь 3.0. Быть человеком в эпоху искусственного интеллекта.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for веб-клиенты и веб-серверы"
+              "title": "Backlinks for Жизнь 3.0. Быть человеком в эпоху искусственного интеллекта"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Code/Python/веб-клиенты и веб-серверы.md",
+                "file": "Диплом/Литература/Жизнь 3.0. Быть человеком в эпоху искусственного интеллекта.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from веб-клиенты и веб-серверы"
+              "title": "Outgoing links from Жизнь 3.0. Быть человеком в эпоху искусственного интеллекта"
             }
           },
           {
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Code/Python/веб-клиенты и веб-серверы.md",
+                "file": "Code/Python/ООП/магические методы.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of веб-клиенты и веб-серверы"
+              "title": "Outline of магические методы"
             }
           }
         ],
@@ -156,8 +156,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -172,45 +171,45 @@
       "obsidian-to-anki-plugin:Obsidian_to_Anki - Scan Vault": false
     }
   },
-  "active": "8487dea243c72953",
+  "active": "46f9fb56a01ab887",
   "lastOpenFiles": [
+    "Code/SQL/триггеры.md",
+    "Code/SQL/крутые функции.md",
+    "decks/PostgreSQL+SQLDeck.md",
+    "decks/decks.md",
+    "Code/Code.md",
+    "Code/JavaScript/JavaScript.md",
+    "Code/Python/Python.md",
+    "decks/FlaskDeck.md",
+    "decks/JSDeck.md",
+    "Code/JavaScript/getting started.md",
+    "decks/pythonDeck.md",
+    "Code/SQL/tasks and tables/Про авторов и книжки.md",
+    "Code/Python/парсинг и работа с сырой сетью/http.md",
+    "Code/JavaScript",
+    "Диплом/Литература/Empiricism for cyborgs.md",
+    "Code/Untitled.md",
+    "Диплом/Литература.md",
+    "Диплом/Диплом.md",
+    "Code/nvim/копирование.md",
     "Диплом/Литература/Active externalism, virtue reliabilism and scientific knowledge.md",
+    "Диплом/Литература/AI, agency and responsibility.md",
+    "Диплом/Литература/AI and Epistemic Agency How AI Influences Belief Revision and Its Normative Implications.md",
+    "Диплом/Литература/The Technological Lifeworld.md",
+    "Диплом/Литература/Neuromedia, extended knowlage and understanding.md",
     "Диплом/Литература/Extended Knowledge and Social Epistemology.md",
     "Диплом/Литература/Epistemology and Active Externalism.md",
-    "Диплом/Литература/Empiricism for cyborgs.md",
     "Диплом/Литература/De-Anthropocentrized Externalism.md",
-    "Диплом/Литература/David Chalmers on Reality+.md",
-    "Диплом/Литература/Creativity, Agency, and AI.md",
-    "Диплом/Литература/О науке.md",
-    "Диплом/Литература/AI and Epistemic Agency How AI Influences Belief Revision and Its Normative Implications.md",
-    "Code/JavaScript/getting started.md",
-    "Code/Python/ООП/магические методы.md",
-    "Code/JavaScript",
-    "магические мтоды.md",
-    "`__getitem__()`.md",
-    "Code/Python/ООП/принципы ООП.md",
-    "decks/pythonDeck.md",
-    "Code/Python/ООП/ООП.md",
-    "Code/tools.md",
-    "Code/Computer Science (База)/Computer Science (База).md",
-    "Code/Computer Science (База)/URL.md",
-    "Code/Python/асинхронность/асинхронность.md",
-    "Code/Python/асинхронность/GIL.md",
-    "Code/Python/Django/Django.md",
-    "Code/Python/Django/создание проекта и приложения.md",
-    "Code/Python/Flask/Flask.md",
-    "Code/Python/парсинг и работа с сырой сетью/парсинг и работа с сырой сетью.md",
-    "Code/Python/парсинг и работа с сырой сетью/http.md",
     "Code/Python/ООП",
-    "Code/Python/парсинг и работа с сырой сетью",
     "Code/Python/асинхронность",
-    "decks",
-    "Code/algorithms",
+    "Code/Python/парсинг и работа с сырой сетью",
     "Code/Python/Flask",
     "Code/Python/Django",
-    "HTTP.pdf",
-    "pp_old.pdf",
-    "Untitled.canvas",
+    "Code/algorithms",
+    "decks",
+    "Code/leetcode/Untitled.canvas",
+    "Заметки.pdf",
+    "Python",
     "Code/SQL/Untitled.canvas",
     "Code/Media_Code/sockets-tcp-flow.1da426797e37.avif",
     "Code/Media_Code/Ящик_с_усами.png",

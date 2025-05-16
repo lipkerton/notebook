@@ -3,6 +3,7 @@
 [[Computer Science (База)]]
 [[Python]]
 [[SQL]]
+[[JavaScript]]
 [[Suffering]]
 [[dictionary]]
 [[leetcode]]
