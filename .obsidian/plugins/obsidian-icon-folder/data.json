@@ -49,5 +49,10 @@
   "Code/Python/Django/Django.md": "LiArchive",
   "Code/Python/Flask/Flask.md": "LiArchive",
   "Code/Python/асинхронность/асинхронность.md": "LiArchive",
-  "Code/JavaScript/JavaScript.md": "LiArchive"
+  "Code/gnu linux/gnu linux.md": "LiArchive",
+  "Code/JavaScript/JavaScript.md": "LiArchive",
+  "Code/SQL/оптимизация и другой стаф/оптимизация и другой стаф.md": "LiArchive",
+  "Code/SQL/язык/язык.md": "LiArchive",
+  "decks/decks.md": "LiArchive",
+  "Code/верстка/верстка.md": "LiArchive"
 }
