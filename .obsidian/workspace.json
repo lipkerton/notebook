@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "decks/FrameworksDeck.md",
+                "file": "Code/Python/Django/шаблонизация в Django.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "FrameworksDeck"
+              "title": "шаблонизация в Django"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "decks/FrameworksDeck.md",
+                "file": "Code/Python/Django/шаблонизация в Django.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of FrameworksDeck"
+              "title": "Outline of шаблонизация в Django"
             }
           }
         ],
@@ -173,12 +173,17 @@
   },
   "active": "263f48fb791d58e9",
   "lastOpenFiles": [
+    "Code/Python/Django/от пути до реализации view.md",
+    "Code/Python/Django/создание проекта и приложения.md",
+    "Code/Python/Django/шаблонизация в Django.md",
+    "Code/Python/Django/Django.md",
+    "Code/nvim/комментирование.md",
+    "decks/FrameworksDeck.md",
     "decks/версткаDeck.md",
     "Code/верстка/CSS basic.md",
     "decks/PostgreSQL+SQLDeck.md",
     "Code/SQL/оптимизация и другой стаф/ACID.md",
     "Code/SQL/оптимизация и другой стаф/оптимизация и другой стаф.md",
-    "decks/FrameworksDeck.md",
     "Code/JavaScript/классы.md",
     "Code/JavaScript/JavaScript.md",
     "Code/JavaScript/управляющие структуры basic.md",
@@ -200,15 +205,10 @@
     "Code/algorithms/бинарный поиск.md",
     "Code/Python/асинхронность/GIL.md",
     "8EF1A3D1-83A0-4CA1-A5E3-227AA44AD3B7.jpeg",
-    "Code/верстка/HTML Basic.md",
-    "Code/Suffering.md",
     "Code/Media_Code/Снимок экрана 2025-06-01 в 08.22.29 1.png",
     "Code/Media_Code/E7513A44-CFA9-4339-81BF-BF560439096F_4_5005_c.jpeg",
     "Code/Media_Code/Столбчатая_диограмма.png",
     "Code/Media_Code/Снимок экрана 2025-06-01 в 08.22.29.png",
-    "decks/decks.md",
-    "Code/dictionary.md",
-    "Code/usefull resources.md",
     "Code/верстка",
     "Code/JavaScript/Untitled",
     "Code/SQL/язык/Untitled",
