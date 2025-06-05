@@ -149,7 +149,7 @@
     "Code/algorithms/бинарный поиск.md": "d41d8cd98f00b204e9800998ecf8427e",
     "Code/Python/Flask/getting started.md": "b376082ca26f33d764ad19aaf745a39e",
     "Code/Python/Flask/Flask.md": "6f6833475d32f18b76047c19aebd3e47",
-    "Code/Python/Django/Django.md": "37d247147d4075ccbd57fcc204b1a7eb",
+    "Code/Python/Django/Django.md": "fa64495ce10e3a15c7e6bad5eddfe896",
     "Code/Python/Flask/простейший сервер со статикой.md": "b376082ca26f33d764ad19aaf745a39e",
     "Code/Python/Flask/простейший сервер.md": "dc7fc42a279b3ca69af546ba3f1a429e",
     "build-your-own-x.md": "d41d8cd98f00b204e9800998ecf8427e",
@@ -214,7 +214,7 @@
     "Code/SQL/язык/крутые функции.md": "a8b81e54cd8377bc8d166be0651c6e87",
     "Code/SQL/язык/выбираем данные из таблички.md": "133848d033c2e78333dab50934bf4402",
     "Code/Python/Django/от пути до реализации view.md": "06a42b923d89ee0eeb6c725da28331fa",
-    "decks/FrameworksDeck.md": "f46fc36d0fc6e26f22bdbbd19f4f1d5c",
+    "decks/FrameworksDeck.md": "ad8d550a6e340957b1b5abd3e2c53224",
     "decks/версткаDeck.md": "37d746b6ff7d51f279df817f5468ee81",
     "Code/верстка/структура HTML.md": "03d26186d195d8707db0fe5c853a4cb2",
     "Code/JavaScript/функции.md": "a72617f8e294fde69d401e2e206c111d",
@@ -227,7 +227,9 @@
     "Code/верстка/bootstrap.md": "dfc50ddd5ac602716fae25b7f1516ff5",
     "Code/JavaScript/классы.md": "32969c94a8673e99466b6afdbde687cd",
     "Code/JavaScript/управляющие структуры basic.md": "6f904dec414e2c627a23b3f78b44d488",
-    "Code/SQL/оптимизация и другой стаф/ACID.md": "c4bce5c7028084136ca27310f911538c"
+    "Code/SQL/оптимизация и другой стаф/ACID.md": "c4bce5c7028084136ca27310f911538c",
+    "Code/nvim/комментирование.md": "32f6610f0aba5a0aba91be7fd82f4d7f",
+    "Code/Python/Django/шаблонизация в Django.md": "3768a257722aec08461566d4b4635bbf"
   },
   "fields_dict": {
     "Задание с пропусками": [
