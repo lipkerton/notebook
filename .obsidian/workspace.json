@@ -4,21 +4,43 @@
     "type": "split",
     "children": [
       {
-        "id": "5e8e1734af0ce9f9",
+        "id": "e07a6f9ccb6b39f4",
         "type": "tabs",
+        "dimension": 50.215749730312844,
         "children": [
           {
-            "id": "263f48fb791d58e9",
+            "id": "af07b3600a3465c7",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "decks/FrameworksDeck.md",
+                "file": "Code/gnu linux/wget tar.gz исходники.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "FrameworksDeck"
+              "title": "wget tar.gz исходники"
+            }
+          }
+        ]
+      },
+      {
+        "id": "f9cc83d10dcb43e6",
+        "type": "tabs",
+        "dimension": 49.78425026968716,
+        "children": [
+          {
+            "id": "40557830c516472f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "decks/linuxDeck.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "linuxDeck"
             }
           }
         ]
@@ -53,7 +75,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#flashcardl",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -142,13 +164,23 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "decks/FrameworksDeck.md",
+                "file": "decks/linuxDeck.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of FrameworksDeck"
+              "title": "Outline of linuxDeck"
+            }
+          },
+          {
+            "id": "54807bd327aa45c6",
+            "type": "leaf",
+            "state": {
+              "type": "calendar",
+              "state": {},
+              "icon": "calendar-with-checkmark",
+              "title": "Calendar"
             }
           }
         ],
@@ -156,7 +188,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 362.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -171,44 +203,47 @@
       "obsidian-to-anki-plugin:Obsidian_to_Anki - Scan Vault": false
     }
   },
-  "active": "263f48fb791d58e9",
+  "active": "40557830c516472f",
   "lastOpenFiles": [
-    "decks/версткаDeck.md",
-    "Code/nvim/комментирование.md",
-    "Code/Python/Django/шаблонизация в Django.md",
-    "decks/FrameworksDeck.md",
-    "Code/верстка/CSS basic.md",
+    "Code/gnu linux/wget tar.gz исходники.md",
+    "decks/linuxDeck.md",
     "decks/PostgreSQL+SQLDeck.md",
-    "Code/SQL/оптимизация и другой стаф/ACID.md",
+    "Code/SQL/оптимизация и другой стаф/установка кластера.md",
+    "Code/SQL/оптимизация и другой стаф/tablespaces.md",
     "Code/SQL/оптимизация и другой стаф/оптимизация и другой стаф.md",
-    "Code/JavaScript/классы.md",
-    "Code/JavaScript/JavaScript.md",
-    "Code/JavaScript/управляющие структуры basic.md",
-    "decks/JSDeck.md",
+    "Code/gnu linux/gnu linux.md",
+    "Code/SQL/оптимизация и другой стаф/pgpass.md",
+    "Code/SQL/оптимизация и другой стаф/MVCC.md",
+    "decks/версткаDeck.md",
+    "Code/gnu linux/права доступа.md",
+    "Code/SQL/оптимизация и другой стаф/связи между таблицами.md",
+    "decks/pythonDeck.md",
+    "decks/NetworkBasicsDeck.md",
+    "decks/FrameworksDeck.md",
+    "Code/Python/python на низком/типы данных и особенности.md",
+    "Code/Python/pandas.md",
+    "Code/Python/Python.md",
+    "Code/Python/unittest doctest nose.md",
+    "Code/верстка/HTML Basic.md",
     "Code/верстка/структура HTML.md",
-    "Code/SQL/язык/JOIN.md",
-    "Code/JavaScript/getting started.md",
-    "Code/JavaScript/базовые операторы.md",
-    "Code/JavaScript/base info.md",
-    "Code/JavaScript/функции.md",
-    "Code/верстка/bootstrap.md",
+    "Code/Python/Django/шаблонизация в Django.md",
+    "Code/Python/venv pipenv virtualenv.md",
+    "decks/decks.md",
+    "decks/математикаDeck.md",
+    "Code/Python/Django/от пути до реализации view.md",
+    "Code/Media_Code/горизонтальная черта.png",
+    "Calendar",
+    "Untitled.canvas",
+    "Code/Python/python на низком",
     "Code/Media_Code/B8EA67E5-FAC4-435F-8673-6D8B8CEA1A2E_4_5005_c.jpeg",
     "Code/Media_Code/0F0C90C4-7012-42D7-8982-275F342C2404_4_5005_c.jpeg",
     "Code/Media_Code/photo_2025-06-01_14-27-09.jpg",
     "Code/Media_Code/photo_2025-06-01_14-25-26.jpg",
     "Code/Media_Code/Снимок экрана 2025-06-01 в 11.32.19.png",
-    "Code/верстка/верстка.md",
-    "Code/algorithms/algorithms.md",
-    "Code/algorithms/бинарный поиск.md",
-    "Code/Python/асинхронность/GIL.md",
     "8EF1A3D1-83A0-4CA1-A5E3-227AA44AD3B7.jpeg",
-    "Code/верстка/HTML Basic.md",
-    "Code/Suffering.md",
     "Code/Media_Code/Снимок экрана 2025-06-01 в 08.22.29 1.png",
     "Code/Media_Code/E7513A44-CFA9-4339-81BF-BF560439096F_4_5005_c.jpeg",
     "Code/Media_Code/Столбчатая_диограмма.png",
-    "Code/Media_Code/Снимок экрана 2025-06-01 в 08.22.29.png",
-    "decks/decks.md",
     "Code/верстка",
     "Code/JavaScript/Untitled",
     "Code/SQL/язык/Untitled",
@@ -217,9 +252,6 @@
     "Code/gnu linux",
     "Code/JavaScript",
     "Code/Python/ООП",
-    "Code/Python/парсинг и работа с сырой сетью",
-    "Code/Python/асинхронность",
-    "Untitled.canvas",
     "Code/SQL/Untitled.canvas",
     "Untitled 1.canvas"
   ]

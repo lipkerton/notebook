@@ -1,4 +1,5 @@
 [[NetworkBasicsDeck]]
+[[математикаDeck]]
 [[версткаDeck]]
 [[FrameworksDeck|FrameworksDeck]]
 [[decks/PostgreSQL+SQLDeck|PostgreSQL+SQLDeck]]

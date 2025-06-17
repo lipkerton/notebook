@@ -4,6 +4,7 @@
 [[парсинг и работа с сырой сетью]]
 [[асинхронность]]
 [[ООП]]
+[[python на низком]]
 [[install python debian]]
 [[venv pipenv virtualenv]]
 [[logging]]
@@ -11,3 +12,4 @@
 [[context manager]]
 [[pandas]]
 [[unittest doctest nose]]
+[[типы данных и особенности]]
