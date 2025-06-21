@@ -4,43 +4,41 @@
     "type": "split",
     "children": [
       {
-        "id": "e07a6f9ccb6b39f4",
+        "id": "9d7f0b3d348f5458",
         "type": "tabs",
-        "dimension": 50.215749730312844,
         "children": [
           {
-            "id": "af07b3600a3465c7",
+            "id": "eb2f11bf2ca58506",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Code/gnu linux/wget tar.gz исходники.md",
+                "file": "Code/SQL/оптимизация и другой стаф/MVCC.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "wget tar.gz исходники"
+              "title": "MVCC"
             }
           }
         ]
       },
       {
-        "id": "f9cc83d10dcb43e6",
+        "id": "79b9c0d777b36ea2",
         "type": "tabs",
-        "dimension": 49.78425026968716,
         "children": [
           {
-            "id": "40557830c516472f",
+            "id": "6226eeff7703b254",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "decks/linuxDeck.md",
+                "file": "Code/SQL/оптимизация и другой стаф/pgpass.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "linuxDeck"
+              "title": "pgpass"
             }
           }
         ]
@@ -164,13 +162,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "decks/linuxDeck.md",
+                "file": "Code/SQL/оптимизация и другой стаф/MVCC.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of linuxDeck"
+              "title": "Outline of MVCC"
             }
           },
           {
@@ -203,34 +201,34 @@
       "obsidian-to-anki-plugin:Obsidian_to_Anki - Scan Vault": false
     }
   },
-  "active": "40557830c516472f",
+  "active": "eb2f11bf2ca58506",
   "lastOpenFiles": [
-    "Code/gnu linux/wget tar.gz исходники.md",
-    "decks/linuxDeck.md",
-    "decks/PostgreSQL+SQLDeck.md",
-    "Code/SQL/оптимизация и другой стаф/установка кластера.md",
-    "Code/SQL/оптимизация и другой стаф/tablespaces.md",
-    "Code/SQL/оптимизация и другой стаф/оптимизация и другой стаф.md",
-    "Code/gnu linux/gnu linux.md",
+    "Code/SQL/оптимизация и другой стаф/изоляция транзакций.md",
     "Code/SQL/оптимизация и другой стаф/pgpass.md",
-    "Code/SQL/оптимизация и другой стаф/MVCC.md",
-    "decks/версткаDeck.md",
-    "Code/gnu linux/права доступа.md",
-    "Code/SQL/оптимизация и другой стаф/связи между таблицами.md",
-    "decks/pythonDeck.md",
-    "decks/NetworkBasicsDeck.md",
-    "decks/FrameworksDeck.md",
-    "Code/Python/python на низком/типы данных и особенности.md",
-    "Code/Python/pandas.md",
-    "Code/Python/Python.md",
-    "Code/Python/unittest doctest nose.md",
-    "Code/верстка/HTML Basic.md",
-    "Code/верстка/структура HTML.md",
     "Code/Python/Django/шаблонизация в Django.md",
-    "Code/Python/venv pipenv virtualenv.md",
-    "decks/decks.md",
+    "Code/Suffering.md",
+    "decks/PostgreSQL+SQLDeck.md",
+    "decks/linuxDeck.md",
+    "Code/SQL/оптимизация и другой стаф/ебаные локали.md",
+    "Code/gnu linux/pass gpg.md",
+    "Code/gnu linux/wget tar.gz исходники.md",
+    "Code/gnu linux/gnu linux.md",
+    "decks/FrameworksDeck.md",
     "decks/математикаDeck.md",
+    "decks/JSDeck.md",
+    "Code/SQL/язык/транзакции.md",
+    "decks/pythonDeck.md",
+    "Code/Python/Django/настройка путей.md",
     "Code/Python/Django/от пути до реализации view.md",
+    "Code/Python/Django/создание проекта и приложения.md",
+    "decks/версткаDeck.md",
+    "Code/Python/Python.md",
+    "decks/NetworkBasicsDeck.md",
+    "Code/Python/списковые (и другие) включения.md",
+    "Code/SQL/оптимизация и другой стаф/MVCC.md",
+    "Code/SQL/оптимизация и другой стаф/установка кластера.md",
+    "Code/Code.md",
+    "Code/SQL/оптимизация и другой стаф/tablespaces.md",
     "Code/Media_Code/горизонтальная черта.png",
     "Calendar",
     "Untitled.canvas",
