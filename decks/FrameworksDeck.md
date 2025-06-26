@@ -376,3 +376,35 @@ def test_1(request):
 		print(result)
 ```
 <!--ID: 1750430415584-->
+
+Как зарендерить шаблон в Django? #flashcard 
+Два способа:
+```Python
+from django.template import loader
+from django.http import HttpResponse
+from django.shortcuts import render
+def test(request):
+	# вариант loader
+	template = loader.get_template('test/test.html')
+	context = {}
+	return HttpResponse(template.render(context, request))
+	# вариант render
+	template = 'test/test.html'
+	context = {}
+	return render(request, template, context)
+```
+<!--ID: 1750527557205-->
+
+Что делать, если я хочу добавить одинаковые `name` в `path()` для разных приложений проекта Django? #flashcard 
+Можно воспользоваться `namespace` - это функционал, который позволяет внутри шаблона обращаться не только к значению `name`, а к значению `name` через имя приложения, в котором оно прописано:
+```HTML
+<a href="{% url 'catalog:product_list' %}">Страница каталога</a>
+```
+Чтобы это было возможным нужно прописать константу с именем приложения в `urls.py` приложения:
+```Python
+app_name = 'catalog'
+...
+path('catalog/', views.catalog_main, name='product_list')
+```
+<!--ID: 1750685768629-->
+

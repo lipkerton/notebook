@@ -4,41 +4,41 @@
     "type": "split",
     "children": [
       {
-        "id": "9d7f0b3d348f5458",
+        "id": "818035ab1bbb6876",
         "type": "tabs",
         "children": [
           {
-            "id": "eb2f11bf2ca58506",
+            "id": "94ea725e5d24ffbb",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Code/SQL/оптимизация и другой стаф/MVCC.md",
+                "file": "Code/Python/полезные модули.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "MVCC"
+              "title": "полезные модули"
             }
           }
         ]
       },
       {
-        "id": "79b9c0d777b36ea2",
+        "id": "887a16cac025e47c",
         "type": "tabs",
         "children": [
           {
-            "id": "6226eeff7703b254",
+            "id": "da6b6e7d43caabdf",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Code/SQL/оптимизация и другой стаф/pgpass.md",
+                "file": "Code/Python/FastAPI/сервер статика шаблоны.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "pgpass"
+              "title": "сервер статика шаблоны"
             }
           }
         ]
@@ -162,13 +162,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Code/SQL/оптимизация и другой стаф/MVCC.md",
+                "file": "Code/Python/FastAPI/сервер статика шаблоны.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of MVCC"
+              "title": "Outline of сервер статика шаблоны"
             }
           },
           {
@@ -201,34 +201,39 @@
       "obsidian-to-anki-plugin:Obsidian_to_Anki - Scan Vault": false
     }
   },
-  "active": "eb2f11bf2ca58506",
+  "active": "da6b6e7d43caabdf",
   "lastOpenFiles": [
-    "Code/SQL/оптимизация и другой стаф/изоляция транзакций.md",
-    "Code/SQL/оптимизация и другой стаф/pgpass.md",
-    "Code/Python/Django/шаблонизация в Django.md",
-    "Code/Suffering.md",
-    "decks/PostgreSQL+SQLDeck.md",
-    "decks/linuxDeck.md",
-    "Code/SQL/оптимизация и другой стаф/ебаные локали.md",
-    "Code/gnu linux/pass gpg.md",
-    "Code/gnu linux/wget tar.gz исходники.md",
-    "Code/gnu linux/gnu linux.md",
-    "decks/FrameworksDeck.md",
-    "decks/математикаDeck.md",
-    "decks/JSDeck.md",
-    "Code/SQL/язык/транзакции.md",
-    "decks/pythonDeck.md",
-    "Code/Python/Django/настройка путей.md",
-    "Code/Python/Django/от пути до реализации view.md",
-    "Code/Python/Django/создание проекта и приложения.md",
-    "decks/версткаDeck.md",
+    "Code/Python/FastAPI/FastAPI.md",
+    "Code/Python/FastAPI/сервер статика шаблоны.md",
     "Code/Python/Python.md",
-    "decks/NetworkBasicsDeck.md",
+    "decks/pythonDeck.md",
+    "Code/Python/FastAPI",
+    "Code/Python/Untitled.md",
+    "Code/Python/полезные модули.md",
     "Code/Python/списковые (и другие) включения.md",
-    "Code/SQL/оптимизация и другой стаф/MVCC.md",
-    "Code/SQL/оптимизация и другой стаф/установка кластера.md",
-    "Code/Code.md",
-    "Code/SQL/оптимизация и другой стаф/tablespaces.md",
+    "Code/Suffering.md",
+    "Code/Computer Science (База)/Сети.md",
+    "decks/PostgreSQL+SQLDeck.md",
+    "decks/NetworkBasicsDeck.md",
+    "Code/Python/Django/шаблонизация в Django.md",
+    "Code/Computer Science (База)/TCP-IP.md",
+    "Code/Computer Science (База)/REST.md",
+    "Code/Computer Science (База)/HTTP.md",
+    "Code/Python/парсинг и работа с сырой сетью/веб-клиенты и веб-серверы.md",
+    "Code/Computer Science (База)/Сокет, порт, IP.md",
+    "Code/SQL/оптимизация и другой стаф/изоляция транзакций.md",
+    "Code/JavaScript/типы, значения и переменные.md",
+    "decks/математикаDeck.md",
+    "Code/Python/Django/Django.md",
+    "Code/Python/python на низком/работа python с памятью.md",
+    "Code/Media_Code/datetime_django_templates.png",
+    "Code/Media_Code/right_broken_string.PNG",
+    "Code/Media_Code/broken_string.png",
+    "Code/Media_Code/safe_usage.PNG",
+    "decks/JSDeck.md",
+    "decks/FrameworksDeck.md",
+    "Code/Python/python на низком/интерпретатор и CPython.md",
+    "Code/Python/python на низком/типы данных и особенности.md",
     "Code/Media_Code/горизонтальная черта.png",
     "Calendar",
     "Untitled.canvas",
@@ -238,10 +243,6 @@
     "Code/Media_Code/photo_2025-06-01_14-27-09.jpg",
     "Code/Media_Code/photo_2025-06-01_14-25-26.jpg",
     "Code/Media_Code/Снимок экрана 2025-06-01 в 11.32.19.png",
-    "8EF1A3D1-83A0-4CA1-A5E3-227AA44AD3B7.jpeg",
-    "Code/Media_Code/Снимок экрана 2025-06-01 в 08.22.29 1.png",
-    "Code/Media_Code/E7513A44-CFA9-4339-81BF-BF560439096F_4_5005_c.jpeg",
-    "Code/Media_Code/Столбчатая_диограмма.png",
     "Code/верстка",
     "Code/JavaScript/Untitled",
     "Code/SQL/язык/Untitled",
@@ -249,7 +250,6 @@
     "Code/SQL/язык",
     "Code/gnu linux",
     "Code/JavaScript",
-    "Code/Python/ООП",
     "Code/SQL/Untitled.canvas",
     "Untitled 1.canvas"
   ]

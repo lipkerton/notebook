@@ -7,4 +7,3 @@ psql -h 127.0.0.1 -U peterpeyukhov -d test
 ```Bash
 echo "<IP>:<порт>:<имя БД>:<имя пользователя в postgres>:<пароль>" > ~/.pgpass
 ```
-t

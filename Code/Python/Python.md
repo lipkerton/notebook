@@ -5,6 +5,7 @@
 [[асинхронность]]
 [[ООП]]
 [[python на низком]]
+[[FastAPI]]
 [[install python debian]]
 [[venv pipenv virtualenv]]
 [[logging]]
