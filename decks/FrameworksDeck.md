@@ -88,14 +88,14 @@ http://www.example.com/echo?name=Peter&title=Cool
 <!--ID: 1748260071616-->
 
 
-Как можно вытащить аргументы из запроса внутри функции? #flashcard 
+Как можно вытащить аргументы из запроса внутри функции Flask? #flashcard 
 Если это аргументы, которые находятся в самом запросе, то таким образом:
 ```Python
 @app.route('/echo/<name>/<title>')
 def echo(name, title):
 	pass
 ```
-А если это аргументы, которые переданы в качестве GET-параметров, то таким:
+А если это аргументы, которые переданы в качестве query-параметров, то таким:
 ```Python
 @app.route('/echo/')
 def echo():
@@ -104,6 +104,24 @@ def echo():
 	title = request.args.get('title')
 ```
 <!--ID: 1748260071619-->
+
+Как мы запишем маршрут для функции, которая должна принимать на вход индекс товара в каталоге (Flask)? #flashcard 
+Обращаемся к экземпляру класса Flask и вызываем функцию `route()`:
+```Python
+@app.route('/catalog/<index>')
+def catalog_item(index):
+	return 'Это предмет из каталога!'
+```
+<!--ID: 1751034622400-->
+
+
+Как использовать конвертер пути в маршрутах Flask? #flashcard 
+Его нужно использовать напрямую в описании маршрута:
+```Python
+@app.route('/<int:item>')
+```
+<!--ID: 1751034622401-->
+
 
 Как начать проект на Django? #flashcard 
 Нужно прописать в терминале:
@@ -407,4 +425,66 @@ app_name = 'catalog'
 path('catalog/', views.catalog_main, name='product_list')
 ```
 <!--ID: 1750685768629-->
+
+Как запустить сервер и создать простейшую страницу с помощью FastAPI? #flashcard 
+Для начала нужно установить FastAPI + его ASGI сервер Uvicorn:
+```Bash
+python -m pip install "fastapi[standard]"
+```
+Теперь создаем файл `main.py`:
+```Python
+from fastapi import FastAPI
+app = FastAPI()
+@app.get("/")
+def homepage():
+	return {"message": "Hello world!"}
+```
+И запускаем его на сервере:
+```Bash
+fastapi dev main.py
+```
+<!--ID: 1751034622402-->
+
+Как добавить конвертер пути в маршрут FastAPI? #flashcard 
+В FastAPI есть сразу два типа конвертера маршрута: 1) в самом маршруте, 2) указание типа с помощью стандартного интерфейса Python.
+```Python
+@app.get("/catalog/{item_id:int}")
+def catalog_item(item_id:int):
+	pass
+```
+
+У меня в FastAPI есть маршрут `@app.get("/catalog/{item_id}")` и я хочу, чтобы для него подходили только запросы, которые вместо `{item_id}` содержат число. Как я могу реализовать такой подход? #flashcard 
+Я могу сообщить конвертер пути для маршрута и указать его же в параметрах функции. Важно помнить, что если конвертер будет указан только в параметрах функции с помощью типизации, то могут возникать коллизии, например, между такими функциями:
+```Python
+@app.get("/catalog/{category_slug}")
+def catalog_category(category_slug:str):
+	pass
+@app.get("/catalog/{item_id}")
+def catalog_item(item_id:int):
+	pass
+```
+Коллизия возникнет при запросе на эндпоинт `/catalog/15` - этот путь попадет не во вторую, а в первую функцию, но не пройдет проверку типа (функция ожидает `str`) и вернет ошибку.
+
+Я хочу указать для функции FastAPI ограниченный набор вариантов того, что может быть в нее передано с помощью параметров пути. Как я могу это сделать? #flashcard 
+С помощью модуля `enum` стандартного пакета Python - нужно определить собственный класс и унаследовать его от `Enum`, а затем в параметрах функции указать для параметров этот класс в качестве типа:
+```Python
+from enum import Enum
+class MyClass(Enum):
+	pass
+@app.get("/catalog/{item_slug}")
+def catalog_item(item_slug:MyClass):
+	pass
+```
+
+Как передаются query-параметры внутрь функции FastAPI? #flashcard 
+Query-параметры принимаются функцией FastAPI без какого-то дополнительного синтаксиса:
+```Python
+@app.get("/catalog/")
+def catalog(category:str=None, size:int=None):
+	pass
+```
+`category` и `size` примут значения, когда они будут переданы с помощью запроса по этому эндпоинту:
+```
+http://127.0.0.1:8000/catalog?category=table&size=big
+```
 
