@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "fa67e8781c9f7d06",
+        "id": "ac4a68d0e257f8cc",
         "type": "tabs",
         "children": [
           {
-            "id": "1de0564e625b782d",
+            "id": "0c1488ba85005535",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Code/Python/Django/шаблонизация в Django.md",
+                "file": "Code/Python/FastAPI/тело запроса.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "шаблонизация в Django"
+              "title": "тело запроса"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Code/Python/Django/шаблонизация в Django.md",
+                "file": "Code/Python/FastAPI/тело запроса.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of шаблонизация в Django"
+              "title": "Outline of тело запроса"
             }
           },
           {
@@ -181,38 +181,39 @@
       "obsidian-to-anki-plugin:Obsidian_to_Anki - Scan Vault": false
     }
   },
-  "active": "1de0564e625b782d",
+  "active": "0c1488ba85005535",
   "lastOpenFiles": [
+    "Code/Python/FastAPI/параметры пути и query.md",
+    "Code/Python/FastAPI/тело запроса.md",
+    "decks/FrameworksDeck.md",
+    "Code/Python/FastAPI/структура приложения.md",
+    "Code/nvim/nvim.md",
     "Code/Suffering.md",
+    "Code/Python/FastAPI/FastAPI.md",
+    "Code/Python/FastAPI/сервер.md",
+    "decks/pythonDeck.md",
+    "Code/верстка/bootstrap.md",
+    "Code/Media_Code/nav_bar_1.png",
+    "Code/nvim/копирование и вставка.md",
     "Code/Python/Django/шаблонизация в Django.md",
     "Code/SQL/оптимизация и другой стаф/изоляция транзакций.md",
+    "decks/PostgreSQL+SQLDeck.md",
+    "Code/SQL/язык/CTE.md",
+    "Code/SQL/tasks and tables/Про ебучих птиц.md",
+    "Code/SQL/SQL.md",
+    "Code/Python/полезные модули.md",
     "Code/верстка/HTML Basic.md",
     "Code/Python/python на низком/типы данных и особенности.md",
     "Code/Python/списковые (и другие) включения.md",
-    "Code/Python/FastAPI/сервер статика шаблоны.md",
-    "decks/FrameworksDeck.md",
     "Code/nvim/комментирование.md",
-    "decks/pythonDeck.md",
-    "Code/Python/полезные модули.md",
     "Code/Computer Science (База)/Computer Science (База).md",
     "Code/Computer Science (База)/OpenAPI.md",
-    "decks/PostgreSQL+SQLDeck.md",
     "decks/NetworkBasicsDeck.md",
     "decks/linuxDeck.md",
-    "decks/JSDeck.md",
-    "decks/decks.md",
     "Code/Media_Code/error_path_param_fastapi.png",
     "Code/Media_Code/path_param_fastapi.png",
     "Code/Media_Code/message_hello_fastapi.png",
-    "Code/tools.md",
-    "Code/gnu linux/локали.md",
-    "Code/gnu linux/wget tar.gz исходники.md",
-    "Code/gnu linux/gnu linux.md",
-    "Code/Python/FastAPI/FastAPI.md",
-    "Code/Python/Python.md",
     "Code/Python/FastAPI",
-    "Code/Python/Untitled.md",
-    "Code/Computer Science (База)/Сети.md",
     "Code/Media_Code/datetime_django_templates.png",
     "Code/Media_Code/right_broken_string.PNG",
     "Code/Media_Code/broken_string.png",
@@ -222,7 +223,6 @@
     "Untitled.canvas",
     "Code/Python/python на низком",
     "Code/Media_Code/B8EA67E5-FAC4-435F-8673-6D8B8CEA1A2E_4_5005_c.jpeg",
-    "Code/Media_Code/0F0C90C4-7012-42D7-8982-275F342C2404_4_5005_c.jpeg",
     "Code/верстка",
     "Code/JavaScript/Untitled",
     "Code/SQL/язык/Untitled",
