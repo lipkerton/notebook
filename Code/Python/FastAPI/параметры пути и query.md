@@ -147,3 +147,47 @@ def hello_peter(name: str, second_name: str | None = None):
 ```
 Никакого специального синтаксиса не нужно - FastAPI определит где какие параметры по именам аргументов
 >[!important] Когда мы указываем query-параметр без значения по умолчанию, то он автоматически становится обязательным.
+### проверка query-параметра на входе
+Иногда хочется проверить входящий query-параметр на соответствие каким-то критериям. 
+Такую проверку можно сделать с помощью стандартного Python модуля `typing` и класса `Query` в FastAPI.
+Для начала нужно получить `Annotated` из `typing`:
+```Python
+from typing import Annotated
+```
+`Annotated` используют, чтобы писать более подробные аннотации к параметрам функции в Python:
+```Python
+def my_func(number: Annotated[int | None]):
+```
+Такая формулировка по сути означает то же самое, что и:
+```Python
+def my_func(number: int | None):
+```
+В FastAPI она позволяет добавить дополнительную валидацию query-параметра, используя модуль `Query` из пакета `fastapi`:
+```Python
+from fastapi import Query
+from typing import Annotated
+...
+def my_func(
+	number: Annotated[int | None, Query(gt=0, le=1000)] = None
+)
+```
+Параметры:
+1) `gt` - greater then
+2) `le` - lesser or equal
+Точно так же можно проверять и строки:
+```Python
+from fastapi import Query
+from typing import Annotated
+...
+def my_func(
+	string: Annotated[str | None, Query(min_length=1, max_length=50)] = None
+)
+```
+Параметры:
+1) `min_length` - проверяет, что в строке больше одного символа.
+2) `max_length` - проверяет, что в строке меньше 50 символов.
+Так же можно вставлять регулярки для проверки входящих строк:
+```Python
+string: Annotated[str | None, Query(pattern='<регулярка>')]
+```
+Для query-параметра так же можно указать, что он принимает список значений.

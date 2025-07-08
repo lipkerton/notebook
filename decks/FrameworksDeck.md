@@ -566,3 +566,63 @@ app.include_routers(test_1.router)
 @app.get("/file/{file_path:path}")
 ```
 <!--ID: 1751560913734-->
+
+Как сделать в FastAPI функцию, которая принимает POST запросы? #flashcard 
+Для начала нужно поменять декоратор для функции и указать в нем путь, который будет обрабатывать POST запросы:
+```Python
+@app.post("/items")
+```
+Затем у нас должен быть создан класс Pydantic, который будет проверять входящие данные (тело запроса) и конвертировать их их JSON формата в формат обычного экземпляра класса Python:
+```Python
+from pydantic import BaseModel
+class Item(BaseModel):
+	name: str
+	price: float
+```
+Теперь можно использовать имя этого класса, чтобы указать аннотацию для POST функции:
+```Python
+@app.post("/items")
+def new_item(item: Item):
+	return item
+```
+<!--ID: 1751880081015-->
+
+
+Как написать POST запрос к эндпоинту? #flashcard 
+Я делаю это через утилиту `curl`:
+```Bash
+curl -X POST -H "Content-Type: application/json" -d '{"name": "Potato", "price": 45.1}' http://127.0.0.1:8000/items
+```
+<!--ID: 1751880081016-->
+
+
+Как можно в FastAPI написать дополнительную проверку для query-параметра (например, проверку на длину передаваемой в него строки)? #flashcard 
+С помощью стандартной аннотации типов в Python:
+```Python
+from typing import Annotated
+from fastapi import Query
+@app.get("/user_info")
+def user_info(
+	name: Annotated[str | None, Query(min_length=1, max_length=50)] = "Joe",
+	email: Annotated[str | None, Query(min_length=1, max_length=50)] = "Doe"
+):
+	return {"name": name, "email"}
+```
+<!--ID: 1751880081017-->
+
+
+Как проверить, что значение числового query-параметра в FastAPI не меньше 1 и не больше 1000? #flashcard 
+Для этого можно использовать аннотацию типов и `Query`:
+```Python
+from typing import Annotated
+from fastapi import Query
+def my_func(
+	number: Annotated[int, Query(gt=0, le=1000)]
+):
+	pass
+```
+Параметры:
+1) `gt` - greater then
+2) `le` - lesser or equal
+<!--ID: 1751880081018-->
+
