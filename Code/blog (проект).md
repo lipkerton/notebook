@@ -414,3 +414,247 @@ async def get_posts(session: SessionDep):
 ```
 [{"title":"Мой первый пост!","content":"Ура-ура!","post_id":1}]
 ```
+### ORM и raw запросы
+Я послушал штук 200 видео про FastAPI и все гайдеры наперебой избегают использования сырых SQL запросов в коде. У этого может быть несколько причин:
+1) использование ORM запроса благоприятно влияет на какие-то фишки внутри SQLAlchemy.
+2) гайдеры не хотят напрягать новичков лишним синтаксисом.
+3) использование ORM - стандарт для современного разработчика.
+Аргументом в пользу ORM часто выступает фраза "так проще, потому что мы пишем SQL запросы на Python", но т.к. я знаю SQL лучше, чем я знаю синтаксис SQLAlchemy ORM мне проще писать сырой SQL запрос и проще понять его в коде.
+Поэтому в части получения постов я написал именно сырой SQL запрос:
+```Python
+@router.get("/p", response_model=list[PostSchema])
+async def get_posts(session: database.SessionDep):
+    result = await session.execute(text("""
+        select post_id, title, content
+        from post
+    """))  # вот тут мой запрос.
+    return result.all()
+```
+А как написать такой же запрос на ORM? Здесь есть свои сложности.
+Чтобы написать такой же запрос нужно обратиться к модели, которую я написал ранее в `models.py` и импортировать из SQLAlchemy конструкцию `select`, которая является калькой на `select` из SQL:
+```Python
+from sqlalchemy import select
+
+
+@app.router("/p", response_model=list[PostSchema])
+async def get_posts(session: database.SessionDep):
+	query = select(models.Post)
+	result = session.execute(query)
+	return result.all()
+```
+Если написать запрос так, то он вернет ошибку валидации:
+```Python
+fastapi.exceptions.ResponseValidationError: 3 validation errors:
+  {'type': 'missing', 'loc': ('response', 0, 'title'), 'msg': 'Field required', 'input': (<app.database.models.Post object at 0x78f46526fb10>,)}
+  {'type': 'missing', 'loc': ('response', 0, 'content'), 'msg': 'Field required', 'input': (<app.database.models.Post object at 0x78f46526fb10>,)}
+  {'type': 'missing', 'loc': ('response', 0, 'post_id'), 'msg': 'Field required', 'input': (<app.database.models.Post object at 0x78f46526fb10>,)}
+```
+Из ошибки видно, что Pydantic модель, которая должна проверять данные из БД, не получает сами значения из полей БД. Вместо них она получает какой-то объект класса `Post` - `(<app.database.models.Post object at 0x78f46526fb10>,)`. То есть она буквально получает необработанный объект модели, который нужно по идее сначала распаковать и найти в нем нужные данные.
+Чтобы это сделать я добавлю функцию `scalars()`:
+```Python
+return result.scalars().all()
+```
+Смысл ее работы в названии: скаляр - это одномерный массив. В контексте нашей функции к такому массиву будут преобразованы полученные из БД значения. Результат будет такой же, какой был при использовании SQL запроса.
+Так же, `scalars()` можно применить вместо `execute()`, если мы ожидаем получить именно простые значения, а не объекты модели:
+```Python
+result = session.scalars(query)
+return result.all()
+```
+### чтобы получить один пост
+Получение одного поста я планирую сделать по индексу - запрос должен содержать параметр пути, в котором должен быть передан индекс. То есть запрос будет выглядеть примерно так:
+```
+http://127.0.0.1:8000/p/{index}
+```
+Здесь возникает несколько нюансов:
+1) я хочу, чтобы в мою функцию попали именно числа, а не любой ввод.
+2) данные придется достать из БД по индексу.
+Чтобы решить первую проблему нужно просто добавить проверку типов и конвертер пути к функции. Конвертер будет выглядеть так:
+```Python
+@router.get("/p/{index:int}")
+```
+Запись `:int` указывает, что этот шаблон пути подойдет только в том случае, если эту часть пути в пользовательском запросе можно преобразовать к числу. Дополнительно можно добавить типизацию внутрь функции:
+```Python
+@router.get("/p/{index:int}")
+async def get_post(index: int, session: database.SessionDep):
+```
+Конвертер и типизация будут проверять входящий параметр на соответствие числовому типу.
+Как написать запрос на получение поста с конкретным идентификатором? В SQL такой запрос выглядел бы так:
+```SQL
+select post_id, title, content from post
+where post_id = index;
+```
+Но я хочу написать такой же, но на ORM SQLAlchemy. Синтаксис ORM предлагает примерно схожую концепцию:
+```Python
+@router.get("/p/{index:int}")
+async def get_post(index: int, session: database.SessionDep):
+	query = select(models.Post).where(models.Post.post_id == index)
+	result = await session.scalar(query)
+	return result
+```
+# глава 2 разнообразие БД
+Я пока создал только одну таблицу в БД, но сразу понятно, что так сервисы с постами не работают. К каждому посту должен быть прикреплен его автор. Это означает, что помимо таблицы с постами должна быть реализована так же и таблица с пользователями.
+Она будет выглядеть проще, чем модель постов, но это только пока:
+```Python
+class User(Base):
+	__tablename__ = "users"
+
+	user_id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+	username: Mapped[str] = mapped_column(String(200), unique=True)
+
+	__table_args__ = (
+		CheckConstraint("length(username) > 0", name="chk_length_username"),
+	)
+```
+Стоит дать пару комментариев по поводу именования таблиц. Таблицу `post` я назвал именно `post` изначально, а для таблицы `users` я выдал название во множественном числе. Почему? Потому что таблицу `user` PostgreSQL не даст создать в БД. Теперь, после того как я назвал во множественном числе таблицу пользователей, я должен назвать во множественном числе и таблицу постов, потому что название таблиц должны быть согласованными по синтаксису - так будет проще обращаться к таблицам, когда их станет очень много.
+Далее, я поставил после `CheckConstraint` запятую - это способ создать кортеж в Python. `__table_args__` требует на вход именно последовательность, поэтому если не указывать запятую после `CheckConstraint` SQLAlchemy просигналит об ошибке. Так происходит, потому что Python автоматически не учитывает скобки, если в них упомянут только один элемент.
+## как связать БД?
+Теперь возникает вопрос: а как указать, что поле из таблицы постов теперь будет ссылаться на пользователя из таблицы пользователей? В SQL такая механика реализовывается через конструкцию `references` при создании БД. В этом случае таблица постов создавалась бы так:
+```SQL
+create table posts(
+	post_id bigint generated always as identity primary key,
+	title varchar(200) not null check(length(title) > 0),
+	content text not null check(length(content) > 0),
+	user_id bigint not null references users(user_id)
+)
+```
+Однако как реализовать то же самое, но на языке моделей SQLAlchemy? Я написал так:
+```Python
+class Post(Base):
+    __tablename__ = "posts"
+    
+    post_id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    title: Mapped[str] = mapped_column(String(150))
+    content: Mapped[str] = mapped_column(Text())
+
+    user_id: Mapped[int] = mapped_column(
+            BigInteger,
+            ForeignKey("users.user_id", ondelete="cascade")
+    )
+
+    __table_args__ = (
+        CheckConstraint("length(title) > 0", name="chk_length_title"),
+        CheckConstraint("length(content) > 0", name="chk_length_content")
+    )
+```
+Объяснение по `user_id`:
+1) `ForeignKey` - название отражает термин "внешний ключ".
+2) Первым аргументом я передал поле первичного ключа из таблицы `users`.
+3) Вторым аргументом я передал настройку `ondelete="cascade"`. Она означает, что при удалении пользователя так же будут удалены все связанные с ним данные, т.е. в данном случае его посты.
+4) Тип данных ключа `BigInteger` должен совпадать с типом данных в таблице `users`.
+## обновление модели Post
+Для базы данных по постам я дописал еще поле - поле для фиксации времени создания поста:
+```Python
+class Post(Base):
+    __tablename__ = "posts"
+    
+    post_id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    title: Mapped[str] = mapped_column(String(150))
+    content: Mapped[str] = mapped_column(Text())
+    created_at: Mapped[datetime] = mapped_column(
+        TIMESTAMP(timezone=True), 
+        default=lambda: datetime.now(timezone.utc)
+    )  # здесь
+
+    user_id: Mapped[int] = mapped_column(
+            BigInteger,
+            ForeignKey("users.user_id", ondelete="cascade")
+    )
+
+    __table_args__ = (
+        CheckConstraint("length(title) > 0", name="chk_length_title"),
+        CheckConstraint("length(content) > 0", name="chk_length_content")
+    )
+```
+Объяснение по `created_at`:
+1) `TIMESTAMP` - сущность из SQLAlchemy, которая определяет тип поля.
+2) `default` - параметр, который будет устанавливать для поста значение по умолчанию, если такое значение не было передано вместе с запросом.
+3) Внутри `default` лежит анонимная `lambda`, которая будет брать время из функции `now()` модуля `datetime`.
+Остается только одна проблема - часовой пояс. И я так и не нашел как можно вставить нормальную поправку на время, потому что все мои попытки дополнить конструкцию `datetime.now()` нормальной таймзоной в итоге превратились все в то же дефолтное время UTC. Стоит прочитать заметку: https://stackoverflow.com/a/462028/30499559
+После установки времени я пошел дополнять схемы для `post`:
+```Python
+from datetime import datetime
+
+from pydantic import BaseModel
+
+
+class PostSchema(BaseModel):
+    post_id: int
+    user_id: int  # поле для юзера
+    created_at: datetime  # поле для времени
+    title: str
+    content: str
+
+    class Config:
+        from_attributes = True
+
+
+class PostCreateSchema(BaseModel):
+    user_id: int  # поле для юзера
+    title: str
+    content: str
+```
+И немного исправил функцию, которая должна добавлять посты в БД:
+```Python
+@router.post("/p")
+async def add_post(post: PostCreateSchema, session: database.SessionDep):
+    new_post = models.Post(
+        title=post.title,
+        content=post.content,
+        user_id=post.user_id  # новое поле
+    )
+    session.add(new_post)
+    await session.commit()
+```
+## приложение user
+Для приложения `user` я сделал отдельную папку. Структура всего проекта теперь выглядит так:
+```
+.
+├── app
+│   ├── config.py
+│   ├── database
+│   │   ├── database.py
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   ├── homepage
+│   │   ├── homepage.py
+│   │   ├── __init__.py
+│   ├── __init__.py
+│   ├── post
+│   │   ├── __init__.py
+│   │   ├── post.py
+│   │   └── schemas.py
+│   └── user  # новое приложение
+│       ├── __init__.py
+│       ├── schemas.py
+│       └── user.py
+├── __init__.py
+├── main.py
+└── requirements.txt
+```
+Внутри - те же файлы, которые я делал для `post`. В `schemas.py` сохранены схемы для создания пользователя и выдачи информации по пользователю:
+```Python
+from pydantic import BaseModel
+
+
+class UserSchema(BaseModel):
+    user_id: int
+    username: str
+
+    class Config:
+       from_attributes = True
+
+
+class UserCreateSchema(BaseModel):
+    username: str
+```
+Кстати, `from_attributes` - это настройка, которая обеспечивает интеграцию схем Pydantic и моделей ORM. Она необходима, потому что Pydantic изначально не может производить валидацию экземпляров класса, т.е. он не может взять экземпляр и проверить его атрибуты. Так происходит в стандартном варианте, потому что Pydantic ждет на вход либо словарь, либо JSON объект.
+Далее, я сделал функцию для создания пользователя в `user.py`:
+```Python
+@router.post("/user")
+async def add_user(user: UserCreateSchema, session: database.SessionDep):
+    new_user = models.User(
+        username = user.username
+    )
+    session.add(new_user)
+    await session.commit()
+```
