@@ -658,3 +658,366 @@ async def add_user(user: UserCreateSchema, session: database.SessionDep):
     session.add(new_user)
     await session.commit()
 ```
+## миграции
+Я должен был об этом задуматься раньше, но мне так нравилось писать простое приложение с простыми SQL запросами, с использованием `psql`, что я совсем забыл обо всем остальном.
+Когда приложение масштабируется и в него требуется вносить правки, зачастую эти самые правки касаются состояния БД. Например, внезапно на ресурс пришла куча пользователей и СУБД начала захлебываться от количества запросов. Причины могут быть разные. Одна из них - плохая инфраструктура БД.
+Например, у нас есть одна масштабная таблица для информации по всем пользователям. В этой таблице находятся сущности, которые мы постоянно запрашиваем из БД, например, имя пользователя и его почта, а еще сущности, которые нам практически не нужны при работе пользователя с сервисом, например, его место рождения, дата свадьбы и т.д. Такую таблицу стоит перестроить (разбить на таблицы поменьше и соединить их связью один к одному) и неплохо было бы протестировать новую постройку.
+В данный момент мои таблицы удаляются и снова создаются при запуске сервера. Такой подход хорош для быстрой практики, однако на реальном сервисе - это отстой. Неплохо было бы иметь такой инструмент, который может проанализировать наши модели, составить по этим моделям запросы к БД, сделать эти запросы, а еще сохранить предыдущее состояние БД, чтобы к нему можно было откатиться если что. 
+Именно такую функцию выполняет встроенный в Django инструмент для миграций. В FastAPI такого встроенного инструмента нет + у меня есть внешний ORM от SQLAlchemy, который было бы неплохо еще и интегрировать с новым инструментом. К счастью мудрые белые люди сделали Alembic.
+### что такое Alembic?
+Alembic - это универсальный инструмент для выполнения миграций. В идеале он должен посмотреть в наши модели, проанализировать изменения, которые мы внесли в них, затем создать миграционные файлы (буквально запросы SQL) и применить их на нашу БД. Формально - это именно то, что сейчас выполняет моя функция на бесконечное удаление и создание таблиц в БД, но гораздо лучше, потому что выполнение миграций - это контролируемый процесс, который внесет обновления в БД, только после соответствующей команды.
+### что такое миграция?
+Миграция - это буквально файл, который содержит информацию об изменениях, которые нужно внести в БД на основании анализа моделей SQLAlchemy. Его будет генерировать Alembic по шаблону, который уже есть по умолчанию при установке Alembic + который мы можем изменить при большом желании (он называется `script.py.mako`).
+### поставить и подключить alembic
+Он ставится довольно просто:
+```Bash
+python -m pip install alembic
+```
+Дальше нужно инициализировать первичные файлы Alembic:
+```Bash
+alembic init <имя папки, где будут лежать файлы>
+```
+Я положил файлы в папку `app/migrations`. Структура проекта теперь выглядит так:
+```Bash
+.
+├── __init__.py
+├── alembic.ini  # файл конфигураций Alembic
+├── app
+│   ├── __init__.py
+│   ├── config.py
+│   ├── database
+│   │   ├── __init__.py
+│   │   ├── database.py
+│   │   └── models.py
+│   ├── homepage
+│   │   ├── __init__.py
+│   │   └── homepage.py
+│   ├── migrations  # файлы Alembic
+│   │   ├── README
+│   │   ├── env.py
+│   │   ├── script.py.mako
+│   │   └── versions
+│   ├── post
+│   │   ├── __init__.py
+│   │   ├── post.py
+│   │   └── schemas.py
+│   └── user
+│       ├── __init__.py
+│       ├── schemas.py
+│       └── user.py
+├── main.py
+└── requirements.txt
+```
+В файле конфигураций `alembic.ini` нужно указать директорию, где содержаться остальные файлы `alembic`:
+```
+script_location = app/migrations
+```
+Далее можно идти в `app/migrations/env.py`, чтобы выставить конфигурацию проекта. Изначально Alembic собирается под синхронные движки SQLAlchemy, т.е. изначально он не подходит для работы с нашим асинхронным движком `asyncpg`. В документации к Alembic существует страница, которая посвящена специально этому вопросу: https://alembic.sqlalchemy.org/en/latest/cookbook.html#using-asyncio-with-alembic.
+Так как я изначально побежал делать все в синхронном виде, не подумав, что мне нужно держать в голове асинхронный движок БД, теперь мне нужно изменить файл `env.py` с помощью экземпляров из документации:
+```Python
+import asyncio
+from logging.config import fileConfig
+
+from sqlalchemy.ext.asyncio import async_engine_from_config
+from sqlalchemy.engine import Connection
+from sqlalchemy import pool
+from alembic import context
+
+from app.database import models
+from app.config import settings
+
+
+config = context.config
+postgresql_url_escaped = settings.POSTGRES_URL.replace('%', '%%')
+config.set_main_option(
+	"sqlalchemy.url", f"{postgresql_url_escaped}"
+)
+if config.config_file_name is not None:
+    fileConfig(config.config_file_name)
+
+target_metadata = models.Base.metadata
+
+
+def run_migrations_offline() -> None:
+    url = config.get_main_option("sqlalchemy.url")
+    context.configure(
+        url=url,
+        target_metadata=target_metadata,
+        literal_binds=True,
+        dialect_opts={"paramstyle": "named"},
+    )
+    with context.begin_transaction():
+        context.run_migrations()
+
+
+def do_run_migrations(connection: Connection) -> None:
+    context.configure(connection=connection, target_metadata=target_metadata)
+    with context.begin_transaction():
+        context.run_migrations()
+
+
+async def run_async_migrations():
+	"""
+	Запустить асинхронные миграции.
+	"""
+    connectable = async_engine_from_config(
+        config.get_section(config.config_ini_section),
+        prefix="sqlalchemy.",
+        poolclass=pool.NullPool,
+    )
+
+    async with connectable.connect() as connection:
+        await connection.run_sync(do_run_migrations)
+
+    await connectable.dispose()
+
+
+def run_migrations_online():
+    asyncio.run(run_async_migrations())
+
+
+if context.is_offline_mode():
+    run_migrations_offline()
+else:
+    run_migrations_online()
+```
+Из интересного: при передаче строки коннекта к БД у меня возникла проблема с использованием служебного символа `%` в пароле, поэтому я применил функцию  `replace()`, чтобы избежать конфликта:
+```Python
+postgresql_url_escaped = settings.POSTGRES_URL.replace('%', '%%')
+config.set_main_option(
+	"sqlalchemy.url", f"{postgresql_url_escaped}"
+)
+```
+После первичных настроек можно сгенерировать первые миграции:
+```Bash
+alembic revision --autogenerate -m "init migrations"
+```
+И применить их последнюю версию:
+```Bash
+alembic upgrade head
+```
+Теперь можно убрать из процесса создания и удаление БД удаление БД. Для этого я в `database.py` просто закомментирую строку:
+```Python
+async def setup_db():
+    async with engine.begin() as conn:
+        # await conn.run_sync(Base.metadata.drop_all)
+        await conn.run_sync(Base.metadata.create_all)
+```
+### вопросы
+Я задался основным вопросом: "А что будет с данными, которые уже есть в БД, если для модели добавить новое поле?". Сейчас в моей БД есть одна запись о пользователе:
+```SQL
+blog=> table users;
+ user_id | username
+---------+----------
+       1 | peter
+(1 row)
+```
+Допустим я добавлю новое поле `email`. Что произойдет с пользователем `peter`, после применения миграций? Я добавил новую строку в модель юзера:
+```Python
+class User(Base):
+    __tablename__ = "users"
+
+    user_id: Mapped[int] = mapped_column(
+	    BigInteger, primary_key=True
+	)
+    username: Mapped[str] = mapped_column(
+	    String(200), unique=True
+	)
+    email: Mapped[str] = mapped_column(
+	    String(200), unique=True
+	)  # новое обязтельное поле
+
+    __table_args__ = (
+        CheckConstraint("length(username) > 0", name="chk_length_username"),
+    )
+```
+Обновил схему:
+```Python
+from pydantic import BaseModel, EmailStr
+
+
+class UserSchema(BaseModel):
+    user_id: int
+    username: str
+    email: EmailStr
+
+    class Config:
+       from_attributes = True
+
+
+class UserCreateSchema(BaseModel):
+    username: str
+    email: EmailStr
+```
+>[!important] К слову для использования `EmailStr` нужно установить не просто пакет `pydantic`, а пакет `pydantic[email]`.
+
+И переписал метод `post` для создания юзера:
+```Python
+@router.post("/user")
+async def add_user(user: UserCreateSchema, session: database.SessionDep):
+    new_user = models.User(
+        username = user.username
+        email = user.email  # новая строка
+    )
+    session.add(new_user)
+    await session.commit()
+```
+Нужно сгенерировать новые миграционные файлы и применить их к БД:
+```Bash
+alembic revision --autogenerate -m "user model updated email field added"
+alembic upgrade head
+```
+И получить ошибку:
+```Bash
+sqlalchemy.exc.IntegrityError: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.NotNullViolationError'>: column "email" of relation "users" contains null values
+[SQL: ALTER TABLE users ALTER COLUMN email SET NOT NULL]
+```
+Состояние БД при этом не изменится - Alembic просто не даст сделать миграцию, пока в БД есть сущности для которых не заполнены поля с электронной почтой.
+Вместо того, чтобы делать поле для почты обязательным я хочу переделать его в необязательное.
+Сначала изменю поле в модели:
+```Python
+email: Mapped[str | None] = mapped_column(
+	String(200), unique=True, default=None
+)
+```
+И добавлю новые значения в схему:
+```Python
+email: EmailStr | None = None
+```
+Теперь казалось бы нужно применить миграции и запушить новое состояние БД, однако все не так просто.
+### список изменений и откат изменений
+Из предыдущих примеров у нас осталась одна трешовая миграция - та, где я написал новое обязательное поле для модели. Она не применилась и упала с ошибкой, состояние БД осталось таким же, каким и было. Вроде все ок, но если попытаться применить новые миграции поверх этой трешовой, то получится следующая ошибка:
+```Bash
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+ERROR [alembic.util.messaging] Target database is not up to date.
+  FAILED: Target database is not up to date.
+```
+Мудрые люди из Stack Overflow [подсказывают](https://stackoverflow.com/a/17776558), что дело буквально в том, что мы обязаны после создания миграций принять их с помощью:
+```Bash
+alembic upgrade head
+```
+А если этот процесс упал с ошибкой (например, при создании миграции мы сделали что-то не то в моделях), то нужно напомнить Alembic о текущем состоянии БД. Чтобы это сделать нужно вбить команду:
+```
+alembic stamp head
+```
+Она подсказывает Alembic в каком состоянии находится сейчас БД. Вместо `head` можно поставить номер любой версии миграций. Сама команда не вносит никаких изменений в состояние БД и данные в ней, поэтому использовать ее безопасно.
+Чтобы посмотреть какие вообще есть сейчас версии нужно вбить:
+```Bash
+alembic history
+```
+В моей истории отображены такие миграции:
+```Bash
+((.venv) ) ➜  blog git:(main) ✗ alembic history
+b0b8662bd8eb -> cebf4db64277 (head), User.email default=None
+99c42659819b -> b0b8662bd8eb, user model update email field update now its must be fullfilled
+00abdff2e5c6 -> 99c42659819b, user model update email field was added
+f3d60a9cb63a -> 00abdff2e5c6, user update email field was added
+<base> -> f3d60a9cb63a, Initial migration
+```
+В самом верху списка текущая миграция `(head)`, а  в самом низу миграция `<base>` - инициирующая миграция. У всех миграций есть свои номера. Номер миграции отражен сразу после стрелки, а перед стрелкой стоит номер предыдущей миграции.
+Чтобы выполнить откат БД к предыдущей версии нужно седлать команду:
+```Bash
+alembic downgrade -1
+```
+Это вернет состояние БД на версию назад. Можно использовать другие числа, чтобы вернуться на несколько шагов назад, а можно вставить идентификатор транзакции вместо числа и вернуться к ней.
+`alembic history` не показывает ту ревизию, в которой сейчас находится состояние БД. Но эту ревизию может показать:
+```
+alembic current
+```
+## создание join
+Допустим у меня есть две связанные таблицы, однако данные, которые я получаю от эндпоинта для постов возвращаются ко мне не с именем пользователя, а с его идентификатором. Для того, чтобы получить именно имя вместе с постом (+ может быть еще и почту) мне нужно сделать `join` таблиц `users` и `posts`.
+Но еще я хочу научится правильно делать `select` по таблицам, с помощью ORM. Например, сейчас мой запрос к БД `posts` выглядит в общем случае так:
+```Python
+select(models.Post)
+```
+Что не очень хорошо с точки зрения SQL, потому что мы таким образом выбираем все поля из таблицы, даже те которые нам могут быть не нужны.
+При попытке понять тему я руководствовался этой статьей: https://habr.com/ru/companies/true_engineering/articles/226521/.
+### select
+Самое банальное, что я попробовал сделать - написать такой запрос на чтение данных, какой я бы написал на SQL:
+```Python
+query = select(
+	models.Post.post_id,
+	models.Post.title,
+	models.Post.content
+)
+```
+Что примерно равно:
+```SQL
+select
+	post_id,
+	title,
+	content
+from posts;
+```
+И такой подход сработает. Не знаю насколько он верный. Однако он больше всего мне напоминает SQL, поэтому я решил и дальше действовать так.
+### join
+Чтобы сделать `join` нужно написать метод `join()` и передать ему на вход два аргумента - таблицу, с которой будет происходить соединение + признак, по которому оно будет происходить:
+```Python
+query = select(
+	models.Post.post_id,
+	models.User.username,
+	models.User.email,
+	models.Post.created_at,
+	models.Post.title,
+	models.Post.content
+)
+query = query.join(
+	models.User, models.Post.user_id == models.User.user_id
+)
+```
+Возможно, эту схему можно расписать попроще, т.к. в данный момент в моем коде сразу две функции содержат код выше.
+### where
+Для функции, которая принимает параметр пути - `post_id`, я должен прописать еще метод `where()`. Он должен найти нужный пост и отдать его обратно:
+```Python
+query = select(
+	models.Post.post_id,
+	models.User.username,
+	models.User.email,
+	models.Post.created_at,
+	models.Post.title,
+	models.Post.content
+)
+query = query.join(
+	models.User, models.Post.user_id == models.User.user_id
+)
+query = query.where(
+	models.Post.post_id == index
+)
+```
+В общем случае порядок применения методов такой же как порядок стандартного SQL запроса.
+### проблемы
+По какой-то причине вместе с изменением модели данных (в т.ч. вместе с изменением схемы) изменилось и поведение `scalar()` и `scalars()`. Методы возвращают либо индексы, либо пустые данные. Дело сто процентов в моих кривых руках. Пытаясь разобраться я пришел к решению заменить `scalar()` и `scalars()` на старый `execute()` и использовать `all()` в случае с функцией, которая возвращает все посты, + `one()` в случае с функцией, которая возвращает только один пост. Получилось так:
+```Python
+@router.get("/p", response_model=list[PostGetSchema])
+async def get_posts(session: database.SessionDep):
+    query = select(
+        models.Post.post_id,
+        models.User.username,
+        models.User.email,
+        models.Post.created_at,
+        models.Post.title,
+        models.Post.content
+    )
+    query = query.join(models.User, models.Post.user_id == models.User.user_id)
+    result = await session.execute(query)
+    return result.all()
+
+
+@router.get("/p/{index:int}", response_model=PostGetSchema)
+async def get_post(index: int, session: database.SessionDep):
+    query = select(
+        models.Post.post_id,
+        models.User.username,
+        models.User.email,
+        models.Post.created_at,
+        models.Post.title,
+        models.Post.content
+    )
+    query = query.join(models.User, models.Post.user_id == models.User.user_id)
+    query = query.where(models.Post.post_id == index) 
+    result = await session.execute(query)
+    return result.one()
+```
+Так же есть проблема с очевидным повторением одного и того же кода в двух случаях. Лучше всего было бы ее решить с помощью отдельной функции, но мне бы не хотелось добавлять к двум уже существующим методам третий промежуточный шаг.
+# глава 3 авторизация и аутентификация

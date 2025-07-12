@@ -626,3 +626,30 @@ def my_func(
 2) `le` - lesser or equal
 <!--ID: 1751880081018-->
 
+Что такое сессия в SQLAlchemy и как ее создать? #flashcard 
+Сессия - это штука, которая позволяет отправлять запросы в БД не по одному, а сразу пачкой в момент выполнения `commit()` (такая механика называется `Unit of Work`) + сессия следит за теми данными, которые попадают из БД в код, например, она не дает делать дубликаты данных в коде, чтобы не забивать память (`Identity Map`).
+Чтобы создать сессию:
+```Python
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+engine = create_engine()
+session = sessionmaker(bind=engine)
+```
+
+Как можно верифицировать входящие данные в функцию FastAPI? #flashcard 
+Можно сделать Pydantic схему, например:
+```Python
+from pydantic import BaseModel
+class UserSchema(BaseModel):
+	username: str
+```
+Теперь эту схему можно передать в качестве определения типа в функцию FastAPI:
+```Python
+@app.post("/user")
+def add_user(user: UserSchema, session: SessionDep):
+	new_user = models.User(
+		username=user.username
+	)
+	session.add(new_user)
+	await session.commit()
+```

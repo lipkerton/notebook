@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Code/blog (проект).md",
+                "file": "Code/SQL/оптимизация и другой стаф/блокировки.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "blog (проект)"
+              "title": "блокировки"
             }
           },
           {
@@ -27,35 +27,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "decks/PostgreSQL+SQLDeck.md",
+                "file": "Code/blog (проект).md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PostgreSQL+SQLDeck"
+              "title": "blog (проект)"
             }
           }
-        ]
-      },
-      {
-        "id": "238b678e1feacc9c",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "c2dc4604447bd3fd",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Code/Python/python на низком/типы данных и особенности.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "типы данных и особенности"
-            }
-          }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -215,24 +196,16 @@
       "obsidian-to-anki-plugin:Obsidian_to_Anki - Scan Vault": false
     }
   },
-  "active": "1de0564e625b782d",
+  "active": "512645b22e368b0f",
   "lastOpenFiles": [
-    "decks/PostgreSQL+SQLDeck.md",
-    "Code/Python/python на низком/типы данных и особенности.md",
-    "decks/pythonDeck.md",
-    "Code/SQL/язык/триггеры.md",
-    "Code/SQL/язык/транзакции.md",
-    "Code/SQL/язык/представления.md",
-    "Code/SQL/язык/крутые функции.md",
-    "Code/SQL/язык/выбираем данные из таблички.md",
-    "Code/SQL/язык/группировки.md",
+    "blog (проект).pdf",
     "decks/FrameworksDeck.md",
-    "Code/SQL/оптимизация и другой стаф/блокировки.md",
-    "Code/SQL/язык/Untitled.md",
-    "Code/SQL/язык/CTE.md",
+    "decks/pythonDeck.md",
     "Code/blog (проект).md",
     "Code/SQL/оптимизация и другой стаф/индексы.md",
     "Code/SQL/оптимизация и другой стаф/оптимизация и другой стаф.md",
+    "decks/PostgreSQL+SQLDeck.md",
+    "Code/SQL/оптимизация и другой стаф/блокировки.md",
     "Code/Python/FastAPI/тело запроса.md",
     "Code/Python/FastAPI/параметры пути и query.md",
     "Code/Python/FastAPI/структура приложения.md",
@@ -243,7 +216,15 @@
     "Code/Suffering.md",
     "Code/SQL/оптимизация и другой стаф/изоляция транзакций.md",
     "Code/верстка/HTML Basic.md",
+    "Code/Python/python на низком/типы данных и особенности.md",
     "Code/Python/списковые (и другие) включения.md",
+    "Code/Python/FastAPI/сервер статика шаблоны.md",
+    "Code/nvim/комментирование.md",
+    "Code/Python/полезные модули.md",
+    "Code/Computer Science (База)/Computer Science (База).md",
+    "Code/Computer Science (База)/OpenAPI.md",
+    "decks/NetworkBasicsDeck.md",
+    "decks/linuxDeck.md",
     "Code/Media_Code/error_path_param_fastapi.png",
     "Code/Media_Code/path_param_fastapi.png",
     "Code/Media_Code/message_hello_fastapi.png",
