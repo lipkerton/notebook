@@ -885,3 +885,44 @@ from author;
 select nullif(book_count, 0)
 from book;
 ```
+
+Когда создается самый первый индекс в таблице? #flashcard 
+При создании таблицы. Первый индекс - это `id` в таблице. Это можно проверить через `psql`, введя `\d <имя_таблицы>`:
+```SQL
+\d entity
+...
+Indexes:
+    "entity_pkey" PRIMARY KEY, btree (entity_id)
+```
+<!--ID: 1752497390600-->
+
+
+Как посмотреть сколько весит таблица в `psql`? #flashcard 
+```SQL
+\dt+ <имя таблицы>
+```
+<!--ID: 1752497390610-->
+
+
+Как посмотреть сколько весит таблица с помощью запроса SQL? #flashcard 
+```SQL
+select pg_relation_size('entity');
+-- или
+select pg_size_pretty(pg_relation_size('entity'));
+```
+<!--ID: 1752497390615-->
+
+
+Что нужно сделать, чтобы `psql` начал замерять время запроса? #flashcard 
+```SQL
+\timing
+```
+<!--ID: 1752497390619-->
+
+
+Как посмотреть в `psql` сколько весит индекс? #flashcard 
+```SQL
+\di+ <имя_индекса>
+```
+<!--ID: 1752497390624-->
+
