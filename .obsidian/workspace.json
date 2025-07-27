@@ -34,12 +34,29 @@
               "icon": "lucide-file",
               "title": "структура"
             }
+          },
+          {
+            "id": "1b7858f8e64f42cd",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "work/структура.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "структура"
+            }
           }
 <<<<<<< Updated upstream
         ]
 =======
         ],
         "currentTab": 2
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
       }
     ],
@@ -162,7 +179,11 @@
               "type": "outline",
               "state": {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "file": "Code/SQL/язык/индексы.md",
+=======
+                "file": "work/структура.md",
+>>>>>>> Stashed changes
 =======
                 "file": "work/структура.md",
 >>>>>>> Stashed changes
@@ -172,7 +193,11 @@
               },
               "icon": "lucide-list",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
               "title": "Outline of индексы"
+=======
+              "title": "Outline of структура"
+>>>>>>> Stashed changes
 =======
               "title": "Outline of структура"
 >>>>>>> Stashed changes
@@ -209,6 +234,7 @@
     }
   },
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   "active": "5e65cc4e715836ba",
   "lastOpenFiles": [
     "Code/SQL/язык/крутые функции.md",
@@ -231,6 +257,10 @@
 =======
   "active": "1b7858f8e64f42cd",
   "lastOpenFiles": [
+=======
+  "active": "1b7858f8e64f42cd",
+  "lastOpenFiles": [
+>>>>>>> Stashed changes
     "work/pytest/pytest.mark.md",
     "Code/Suffering.md",
     "work/структура.md",
@@ -243,6 +273,9 @@
     "decks/PostgreSQL+SQLDeck.md",
     "Code/SQL/язык/индексы.md",
     "Code/SQL/оптимизация и другой стаф/индексы.md",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     "Code/Python/python на низком/компилятор и интерпретатор.md",
     "Code/Python/списковые (и другие) включения.md",
@@ -271,6 +304,9 @@
     "Code/Python/python на низком/типы данных и особенности.md",
     "Code/Python/списковые (и другие) включения.md",
     "Code/Python/FastAPI/сервер статика шаблоны.md",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     "Code/Media_Code/error_path_param_fastapi.png",
     "Code/Media_Code/path_param_fastapi.png",
@@ -289,9 +325,12 @@
     "Code/SQL/язык/Untitled",
     "Code/SQL/оптимизация и другой стаф",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     "Code/SQL/язык",
     "Code/gnu linux",
     "Code/JavaScript",
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     "Code/SQL/Untitled.canvas",
