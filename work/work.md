@@ -1,0 +1,5 @@
+[[pytest]]
+[[структура]]
+[[allure]]
+[[info]]
+[[swagger]]

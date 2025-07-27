@@ -39,14 +39,10 @@
             "id": "1b7858f8e64f42cd",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "work/структура.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "структура"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
             }
           }
         ],
@@ -171,13 +167,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "work/структура.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of структура"
+              "title": "Outline"
             }
           },
           {
@@ -212,18 +207,21 @@
   },
   "active": "1b7858f8e64f42cd",
   "lastOpenFiles": [
+    "work/work.md",
+    "work/pytest/pytest.md",
     "work/pytest/pytest.mark.md",
-    "Code/Suffering.md",
+    "Code/blog (проект).md",
+    "Code/SQL/SQL.md",
+    "Code/SQL/язык/индексы.md",
+    "Code/SQL/оптимизация и другой стаф/индексы.md",
     "work/структура.md",
+    "Code/Suffering.md",
     "work/swagger.md",
     "work/pytest",
     "work/allure.md",
     "work/info.md",
-    "Code/blog (проект).md",
     "work",
     "decks/PostgreSQL+SQLDeck.md",
-    "Code/SQL/язык/индексы.md",
-    "Code/SQL/оптимизация и другой стаф/индексы.md",
     "Code/Python/python на низком/компилятор и интерпретатор.md",
     "Code/Media_Code/basic auth header.PNG",
     "blog (проект).pdf",
@@ -240,9 +238,6 @@
     "Code/Media_Code/nav_bar_1.png",
     "Code/SQL/оптимизация и другой стаф/изоляция транзакций.md",
     "Code/верстка/HTML Basic.md",
-    "Code/Python/python на низком/типы данных и особенности.md",
-    "Code/Python/списковые (и другие) включения.md",
-    "Code/Python/FastAPI/сервер статика шаблоны.md",
     "Code/Media_Code/error_path_param_fastapi.png",
     "Code/Media_Code/path_param_fastapi.png",
     "Code/Media_Code/message_hello_fastapi.png",
