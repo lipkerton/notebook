@@ -1556,3 +1556,93 @@ def verify_jwt_token(jwt_token: str) -> dict | None:
         return None
 ```
 То есть мы просто принимаем токен и распаковываем его в обратную сторону, а если такого токена нет, то возвращаем ошибку. Из `token_check` должен вернуться словарь данных, который мы запаковали в токен при заходе пользователя на сервис.
+Теперь можно передавать в параметры ресурса, который мы хотим защитить, зависимость:
+```Python
+@router.get("/user", response_model=list[UserGetSchema])
+async def get_users(
+    session: database.SessionDep,
+    credentials: Annotated[dict, Depends(token_check)]
+):
+	pass
+```
+Чтобы обратиться к этой функции через `curl` нужно будет вставить дополнительный заголовок `Authorization`:
+```Bash
+curl -X GET -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN0ZXZlIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJleHAiOjE3NTQ0NzE1NTF9.No_Jakp8oh0i3Nl_VVrLM27pyUv7KWvdz99cKkq6F9w" http://127.0.0.1:8000/user
+```
+
+# тесты
+Когда у меня в проекте накопилось уже куча вещей я решил, что пора добавить тесты, чтобы не проебать весь аккуратный функционал.
+Тесты буду делать на `pytest`, но из-за того, что у меня 100% функций на сервисе асинхронные, мне придется использовать `pytest-asyncio`.
+Тесты не должны зависеть от основного кода, поэтому всю историю с подключением к БД придется организовать заново, но в этот раз без удобных фишек из `fastapi` типа `Depends`.
+## фиксура на коннект + тесты БД
+Сначала нужно создать как белый человек файл `conftest.py`. Это файл, который входит в круг "конфигурационных файлов" `pytest`. Не знаю как его правильно обозвать, но суть в том, что в нем я могу прописать функции-фиксуры, которые из этого же файла без всяких импортов можно будет использовать по всему набору тестов.
+Внутри `conftest.py` я сделаю первую функцию-фиксуру - она будет выдавать сессии тестам:
+```Python
+import pytest
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+
+from ..app.config import settings
+
+
+@pytest.fixture
+async def session(): 
+	engine = create_async_engine(settings.POSTGRES_URL)
+	async with engine.connect() as conn:
+		async_session_maker = async_sessionmaker(bind=engine, expire_on_commit=False)
+		with async_session_maker() as session:
+			yield session
+```
+В сущности здесь происходит все то же самое, что происходило ранее при создании интерфейса коннекта к БД для приложения:
+1) создается движок.
+2) создается сессия;
+3) сессия отдается по вызову фиксуры.
+Теперь нужно написать первую тройку тестов - нужно проверить можно ли подключиться к БД. Это я сделаю в файле `test_db.py`:
+```Python
+import pytest
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+
+from .app.config import settings
+
+
+def test_engine():
+    engine = create_async_engine(settings.POSTGRES_URL)
+    assert isinstance(engine, AsyncEngine), \
+        f"Не удалось подключиться к БД с помощью запроса: {settings.POSTGRES_URL}."
+
+
+async def test_session():
+    engine = create_async_engine(settings.POSTGRES_URL)
+    async_session_maker = async_sessionmaker(bind=engine, expire_on_commit=False)
+    async with async_session_maker() as session:
+        assert isinstance(session, AsyncSession), \
+            "Ошибка при попытке создать сессию."
+
+
+async def test_query(session):
+    query = select(1)
+    result = await session.execute(query)
+    assert result.scalar() == 1, \
+        "Запрос `select(1)` вернул неверный результат."
+```
+Слэш в данном случае выполняет функцию переноса. Я использую именно слэш, а не скобочный подход, потому что в случае скобок `pytest` довольно часто пишет предупреждения о том, что в `assert` на проверку был передан кортеж, соответственно, возвращаться всегда будет `True`, т.к. кортеж не пуст.
+Такое тестирование не запустится - `pytest` будет возмущаться, что неожиданно для него были сделаны асинхронные тесты. Чтобы исправить ситуацию нужно либо достать из библиотеки `pytest-asyncio` декоратор `@pytest.mark.asyncio`, либо прописать для `pytest.ini` настройки запуска тестирования:
+```ini
+addopts = 
+    "--asyncio-mode=auto"
+```
+Для каждого `assert` прописана простейшая проверка + указано сообщение, которое будет появляться в случае провала проверки.
+После проверки коннекта можно отправить пробный запрос - это делает третий тест.
+### pytest.mark
+Это такая удобная штука для разметки тестов. Допустим у меня есть куча разных файлов тестирования, которые при этом относятся примерно к одной категории тестов. Все эти файлы я могу пометить собственной меткой, например:
+```Python
+pytestmark = pytest.mark.db
+```
+А затем запускать скопом через эту же метку.
+Метки - это гибкая штука. Кроме указания их через переменную `pytestmark` еще можно выставлять декораторы для каждого теста индивидуально + внутри `pytestmark` можно держать список меток, которые могут вызвать этот файл с тестами:
+```Python
+pytestmark = [pytest.mark.db, pytest.mark.joke]
+```
+После этого можно закинуть сессии на полку - в реальных тестах для проекта сначала нужно научиться вызвать эндпоинты.
+
+## вызов эндпоинта
+Для того, чтобы мой код тестов писал автоматические запросы к моему же приложению я буду использовать библиотеку `requests`. Начну с создания пользователя
