@@ -34,7 +34,6 @@
     "useInternalPlugins": false
   },
   "Code/Computer Science (База)/Computer Science (База).md": "LiArchive",
-  "Code/nvim/nvim.md": "LiArchive",
   "Code/SQL/SQL.md": "LiArchive",
   "Code/Suffering.md": "LiAccessibility",
   "Code/tools.md": "LiAppWindow",
@@ -58,5 +57,6 @@
   "Code/Python/python на низком/python на низком.md": "LiArchive",
   "Code/Python/FastAPI/FastAPI.md": "LiArchive",
   "work/work.md": "LiArchive",
-  "work/pytest/pytest.md": "LiArchive"
+  "work/pytest/pytest.md": "LiArchive",
+  "Code/nvim + VSCode/nvim.md": "LiArchive"
 }

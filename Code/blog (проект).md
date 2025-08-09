@@ -1556,10 +1556,18 @@ def verify_jwt_token(jwt_token: str) -> dict | None:
         return None
 ```
 То есть мы просто принимаем токен и распаковываем его в обратную сторону, а если такого токена нет, то возвращаем ошибку. Из `token_check` должен вернуться словарь данных, который мы запаковали в токен при заходе пользователя на сервис.
+<<<<<<< Updated upstream
 Теперь можно передавать в параметры ресурса, который мы хотим защитить, зависимость:
 ```Python
 @router.get("/user", response_model=list[UserGetSchema])
 async def get_users(
+=======
+Теперь мне просто нужно передать `token_check` в параметры функции, которую я хочу защитить в качестве зависимости:
+```Python
+@router.post("/p")
+async def add_post(
+    post: PostCreateSchema,
+>>>>>>> Stashed changes
     session: database.SessionDep,
     credentials: Annotated[dict, Depends(token_check)]
 ):
@@ -1569,7 +1577,14 @@ async def get_users(
 ```Bash
 curl -X GET -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN0ZXZlIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJleHAiOjE3NTQ0NzE1NTF9.No_Jakp8oh0i3Nl_VVrLM27pyUv7KWvdz99cKkq6F9w" http://127.0.0.1:8000/user
 ```
-
+С каждым запросом к этому эндпоинту понадобится передавать `Bearer` токен в заголовке `Authorization`. Я это делаю так:
+```Bash
+curl -X POST \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer <токен, который получили ранее>" \
+-d '{"title": "my first post", "content": "prikol", "user_id": 2}' \
+http://127.0.0.1:8000/p
+```
 # тесты
 Когда у меня в проекте накопилось уже куча вещей я решил, что пора добавить тесты, чтобы не проебать весь аккуратный функционал.
 Тесты буду делать на `pytest`, но из-за того, что у меня 100% функций на сервисе асинхронные, мне придется использовать `pytest-asyncio`.
@@ -1643,6 +1658,6 @@ pytestmark = pytest.mark.db
 pytestmark = [pytest.mark.db, pytest.mark.joke]
 ```
 После этого можно закинуть сессии на полку - в реальных тестах для проекта сначала нужно научиться вызвать эндпоинты.
-
 ## вызов эндпоинта
-Для того, чтобы мой код тестов писал автоматические запросы к моему же приложению я буду использовать библиотеку `requests`. Начну с создания пользователя
+Для того, чтобы мой код тестов писал автоматические запросы к моему же приложению я буду использовать библиотеку `requests`. Начну с создания пользователя.
+
