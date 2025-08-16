@@ -155,7 +155,7 @@
     "build-your-own-x.md": "d41d8cd98f00b204e9800998ecf8427e",
     "template/template.md": "b2f2691e5014795a0c427eeb4a440246",
     "decks/socketDeck.md": "f97008f1bc5cc1bfb7cd22e3f998e8e2",
-    "decks/PostgreSQL+SQLDeck.md": "9e9eaed484e734b2fecae53f688b6d0a",
+    "decks/PostgreSQL+SQLDeck.md": "1c68f4679cc2c8c4a07287cedaadec0c",
     "decks/pythonDeck.md": "5b03d5d3b4225da0a4c90c18c468c6a6",
     "Code/Python/venv pipenv virtualenv.md": "42fef445e6153ff66f0fd3bff5d953d8",
     "Code/SQL/оптимизация PostgreSQL.md": "7c07fce45a52c93ae910aa30ae12aa56",
@@ -266,7 +266,7 @@
     "Code/Python/FastAPI/сервер.md": "31534fc9f5e95ab6a90bc5a7f4f87dad",
     "Code/Python/FastAPI/параметры пути и query.md": "b155706cc83f391c4728eb731a5cf1dd",
     "Code/SQL/оптимизация и другой стаф/индексы.md": "99e5995c0d7899df3016b0339bb8deb8",
-    "Code/SQL/язык/индексы.md": "30e8b6161503586dd4bfc4b6b9059e9c",
+    "Code/SQL/язык/индексы.md": "e402ce31985434947be3b43916db4e22",
     "Code/Python/python на низком/компилятор и интерпретатор.md": "b65dcefbed54def993a7e9d0e14a5a5a",
     "work/pytest/pytest.md": "231d29d569477fb20cb2d29a5f2980ca",
     "work/pytest/pytest.mark.md": "7d1c7421872520cb9107e68b895cd936",
@@ -281,7 +281,8 @@
     "Code/nvim + VSCode/копирование и вставка.md": "a4e75f174e63b46a8c44625e9b2f7cf6",
     "Code/nvim + VSCode/комментирование.md": "1991b04ed6639f66c2d527a744495ffc",
     "Code/nvim + VSCode/двигаем строки.md": "b89f7e3553dfdfaba8c49b3a456fe5d9",
-    "Code/nvim + VSCode/VSCode.md": "f9bab93ead8d9c849d1296a15b15162f"
+    "Code/nvim + VSCode/VSCode.md": "f9bab93ead8d9c849d1296a15b15162f",
+    "магистратура.md": "a948569c479a62dd671844d10bfd01a3"
   },
   "fields_dict": {
     "Задание с пропусками": [
