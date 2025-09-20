@@ -57,5 +57,9 @@
   "Code/Python/python на низком/python на низком.md": "LiArchive",
   "Code/Python/FastAPI/FastAPI.md": "LiArchive",
   "work/work.md": "LiArchive",
-  "work/pytest/pytest.md": "LiArchive"
+  "work/pytest/pytest.md": "LiArchive",
+  "Code/nvim + VSCode/nvim + VSCode.md": "LiArchive",
+  "Code/algorithms/algorithms.md": "LiArchive",
+  "Code/docker/docker.md": "LiArchive",
+  "Code/leetcode/leetcode.md": "LiArchive"
 }

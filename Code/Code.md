@@ -3,7 +3,7 @@
 [[Computer Science (База)]]
 [[Python]]
 [[SQL]]
-[[nvim]]
+[[nvim + VSCode]]
 [[gnu linux]]
 [[JavaScript]]
 [[верстка]]
