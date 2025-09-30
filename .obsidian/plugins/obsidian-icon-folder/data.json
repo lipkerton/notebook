@@ -60,6 +60,9 @@
   "work/pytest/pytest.md": "LiArchive",
   "Code/nvim + VSCode/nvim + VSCode.md": "LiArchive",
   "Code/algorithms/algorithms.md": "LiArchive",
-  "Code/docker/docker.md": "LiArchive",
-  "Code/leetcode/leetcode.md": "LiArchive"
+  "Code/leetcode/leetcode.md": "LiArchive",
+  "Code/DevOps/git/git.md": "LiArchive",
+  "Code/DevOps/docker/docker.md": "LiArchive",
+  "Code/DevOps/DevOps.md": "LiArchive",
+  "Code/DevOps/ci-cd/ci-cd.md": "LiArchive"
 }
