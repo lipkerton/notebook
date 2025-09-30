@@ -1717,8 +1717,281 @@ async def delete_post(
     await session.execute(query)
     await session.commit()
 ```
+### user create
+Для того, чтобы мой код тестов писал автоматические запросы к моему же приложению я буду использовать библиотеку `requests`. 
+Однако лучше всего задаться вопросом: **что я хочу тестировать?**
+На данном этапе материала не много - я описал его [[blog (проект)#тесты пользователя|здесь]].
+С помощью библиотеки `requests` я отправлю запрос на создание пользователя и хочу получить ответ, что он действительно создался:
+```Python
+def test_create_user():
+    """
+    Тест высылает POST-запрос на эндпоинт
+    `/user` с данными для создания пользователя.
+    """
+    response = requests.post(
+        f"{socket.socket}{ENDPOINT}",
+        headers={"Content-Type": "application/json"},
+        data=user_json,
+        timeout=TIMEOUT
+    )
+    assert response.status_code == 200, (
+        "Не удалось создать пользователя.\n",
+        ERROR_USER_MESSAGE_INFO.format(response.status_code)
+    )
+```
+Перед написанием этого теста я сделал несколько вещей:
+1) Создал класс `Socket`, который будет мне автоматически выдавать строку `хост+порт`. Зачем я это сделал? Для понтов. На самом деле эту штуку можно поместить в константу.
+2) В константу вместо этого я поместил эндпоинт `/user` (константа называется `ENDPOINT`). Поэтому первый аргумент к функции `post()` является комбинацией сокета и эндпоинта в строке.
+3) Сделал класс `User` с помощью `namedtuple`, а затем с помощью библиотеки `json` и функции `dumps()` превратил экземпляр класса `User` в JSON, чтобы можно было его отправить вместе с запросом. Эта магия выглядит так:
+```Python
+User = namedtuple("User", ["username", "password", "email"])
+user = User("steve", "123456", "stevevach@gmail.com")
+user_json = json.dumps(user._asdict())
+```
+4) Сделал константу, которая будет обозначать таймаут, чтобы Pylint не жаловался (константа называется `TIMEOUT`).
+5) И сделал generic-строку с сообщением об ошибке в константе `ERROR_USER_MESSAGE_INFO`.
+Тесты здесь и далее будут простыми и однотипными - обращаюсь к эндпоинту определенным методом, высылаю вместе с методом весь контент, который по идее должен метод принимать, а потом проверяю, что вернулся ожидаемый результат.
+В этой части теста:
+```Python
+response = requests.post(
+	f"{socket.socket}{ENDPOINT}",
+	headers={"Content-Type": "application/json"},
+	data=user_json,
+	timeout=TIMEOUT
+)   
+```
+Я использую функцию `post()` из библиотеки `requests`, чтобы сформировать POST-запрос на эндпоинт `http://localhost:8000/user`. Параметр `headers` содержит список заголовков, которые нужно передать вместе с запросом для корректной работы, в данном случае заголовок указывает, что в теле запроса (`data`) будет содержаться JSON. В `data` я размещаю JSON с `username`, `password` и `email` пользователя.
+В результате работы функции `post()` в переменную `response` вернется объект класса `Response`. 
+Далее, я пишу проверку:
+```Python
+assert response.status_code == 200, (
+	"Не удалось создать пользователя.\n",
+	ERROR_USER_MESSAGE_INFO.format(response.status_code)
+)
+```
+Из объекта класса `Response` можно достать много классного. В данном случае я хочу получить статус-код ответа и проверить, что он равен `200`. В случае если проверка удастся, то я считаю, что тест успешен, а если она закончится провалом, то я выведу на экран то самое generic-сообщение об ошибке.
+Теперь я хочу сделать более сложный тест - проверить, что юзер действительно был создан в БД после запроса. Для этого мне понадобится обратиться к БД с помощью сессии.
+Так как я планирую обращаться к БД в нескольких разных тестах, то было бы правильно создать функцию, которая будет всем тестам обеспечивать коннект к БД. В `pytest` есть удобная реализация функций, которая называется "фиксура".
+**Фиксура** - это механизм, который применяется перед тестом или после теста (или сразу в обоих случаях). Для такой штуки существует отдельный термин, потому что случаи, когда нужно создать какие-то данные перед тестированием и удалить эти же данные после очень часты.
+Я хочу создать фиксуру, которая будет хранить в себе запрос к БД и перед началом теста делать этот запрос к БД, чтобы у теста сразу был в распоряжении результат запроса. Реализация:
+```Python
+@pytest.fixture(name="db_user")
+async def get_db_user(session):
+    """
+    Фиксура должна отдавать пользователя из БД.
+    """
+    query = f"""
+        select username, password, email from users
+        where
+            username = '{user.username}'
+            and email = '{user.email}';
+    """
+    result = await session.execute(text(query))
+    yield result
+```
+По сути это простая функция, но она подписана декоратором `@pytest.fixture()`. Для декоратора я передал параметр `name`, который будет определять по какому имени будет вызываться фиксура (это не обязательно, но Pylint ругается, если не использовать `name`). Внутри написано то, с чем я уже сталкивался ранее, задерживаться не буду. В конце стоит слово `yield`, которое будет возвращать результат запроса.
 
-## вызов эндпоинта
-Для того, чтобы мой код тестов писал автоматические запросы к моему же приложению я буду использовать библиотеку `requests`. Начну с создания пользователя.
+>[!important] Перед словом `yield` в фиксуре выполняются действия **до** тела теста, а после слова `yield` в фиксуре выполняются действия **после** теста.
 
->[!important] Исправить месседжи в `test_user.py`.
+Теперь сам тест:
+```Python
+def test_check_new_user_db(db_user):
+    """
+    Проверяем наличие созданного пользователя в БД.
+    """
+    hashed_password = password.get_password_hash(user.password)
+
+    try:
+        db_user = User._make(db_user.one())
+    except TypeError as error:
+        raise TypeError(
+            "Запрос не удался: вернулся неполный результат.\n",
+            ERROR_USER_MESSAGE_INFO.format(
+                "Это был прямой запрос в БД."
+            )
+        ) from error
+    except NoResultFound as error:
+        raise NoResultFound(
+            "Запрос не удался: вернулся пустой результат.\n",
+            ERROR_USER_MESSAGE_INFO.format(
+                "Это был прямой запрос в БД."
+            )
+        ) from error
+    assert db_user.username == user.username, (
+        "Не совпадает имя пользовтаеля.\n",
+        f"db_username: {db_user.username}\n",
+        f"init_username: {user.username}\n"
+    )
+    assert password.verify_password(user.password, db_user.password), (
+        "Не совпадают пароли.\n",
+        f"db_password: {db_user.password}\n",
+        f"init_password: {hashed_password}\n"
+    )
+    assert db_user.email == user.email, (
+        "Не совпадают эл.почты.\n"
+        f"db_password: {db_user.password}\n"
+        f"init_password: {hashed_password}\n"
+    )
+```
+Как видно в параметрах функции как раз стоит имя нашей фиксуры. Это означает, что **до** тестирования она проделает всю работу и только потом начнется сам механизм теста.
+Тест основан на фишке `namedtuple`, которая называется `_make()`. Она берет последовательность и делает из нее объект класса `User`. Если была передана неверная последовательность, то упадет ошибка `TypeError`. А если запрос вернет пустой результат, то функция `.one()` выдаст ошибку `NoResultFound`.
+
+>[!important] У `sqlalchemy` есть своя библиотека исключений - ее можно импортировать так: `from sqlalchemy.exc import NoResultFound`.
+
+Далее, идут проверки самого содержимого последовательности. Все они стандартно сравнивают то, что вернулось из БД благодаря фиксуре и то, что было изначально отправлено предыдущим тестом.
+### user login
+После создания юзера я хочу его залогинить. Логин должен вернуть мне токен, который я сохраню для последующего тестирования в экземпляре класса `Token`:
+```Python
+def test_login():
+    """
+    Тест высылает POST-запрос на эндпоинт
+    `/login` с логином-паролем для входа.
+    """
+    endpoint = "/login"
+    response = requests.post(
+        f"{socket.socket}{endpoint}",
+        auth=(user.username, user.password),
+        timeout=TIMEOUT
+    )
+    assert response.status_code == 200, \
+        f"""Логин не удался. Кредиты:
+        {user.username}, {user.password}"""
+    token.token = response.json()
+```
+Аргументы для функции `post()` отличаются. Параметр `auth` принимает в себя кортеж с параметрами аутентификации. Так как метод возвращает токен, то результат работы метода (токен) можно превратить в JSON, а потом сохранить, Это происходит тут:
+```Python
+token.token = response.json()
+```
+Все на этом крутой тест завершен.
+### get user(s)
+Все тесты на получение пользователя или списка пользователей требуют аутентификации:
+```Python
+def test_get_users():
+    """
+    Тест высылает GET-запрос на эндпоинт
+    `/user`, чтобы получить список пользователей.
+    Это защищенный эндпоинт, поэтому к запросу
+    добавляем токен, полученный на логине.
+    """
+    response = requests.get(
+        f"{socket.socket}{ENDPOINT}",
+        headers={"Authorization": token.token},
+        timeout=TIMEOUT
+    )
+    assert response.status_code == 200, \
+        "Не удалось получить список пользователей."
+    assert response.json(), \
+        "Список пользователей пуст."
+
+
+def test_get_user():
+    """
+    Тест высылает GET-запрос на эндпоинт
+    `/user`, чтобы получить пользователя.
+    Это защищенный эндпоинт, поэтому к запросу
+    добавляем токен, полученный на логине.
+    """
+    username_path_param = f"/{user.username}"
+    response = requests.get(
+        f"{socket.socket}{ENDPOINT}{username_path_param}",
+        headers={"Authorization": token.token},
+        timeout=TIMEOUT
+    )
+    assert response.status_code == 200, \
+        "Не удалось получить пользователя."
+    result = response.json()
+    assert result["username"] == user.username, (
+        f"Имя пользователя не совпадает.\n"
+        f"result_username: {result['username']}\n",
+        f"user_username: {user.username}.\n"
+    )
+    assert result["email"] == user.email, (
+        f"Почта пользователя не совпадает.\n"
+        f"result_email: {result['email']}\n",
+        f"user_username: {user.email}.\n"
+    )
+```
+Собственно, принцип аутентификации здесь самый интересный - я передаю новый заголовок `Authorization` вместе с запросом.
+### anon
+Тесты на анонимного пользователя по сути должны проверять, что у него нет доступа туда, куда ему не нужно попадать. То есть я должен делать запросы к защищенным эндпоинтам и проверять, что вернулся статус код `403`.
+```Python
+def test_anon_get_users():
+    """
+    Провека доступа анонима (без токена) к GET `/user`.
+    """
+    response = requests.get(
+        f"{socket.socket}{ENDPOINT}",
+        timeout=TIMEOUT
+    )
+    assert response.status_code == 403, (
+        f"Аноним не должен получать доступ к {socket.socket}{ENDPOINT}.\n",
+        "HTTP-метод: GET."
+    )
+
+
+def test_anon_get_user():
+    """
+    Проверка доступ анонима (без токена) к GET `/user/{username}`.
+    """
+    username_path_param = f"/{user.username}"
+    response = requests.get(
+        f"{socket.socket}{ENDPOINT}{username_path_param}",
+        timeout=TIMEOUT
+    )
+    assert response.status_code == 403, (
+        f"Аноним не должен получать доступ к {socket.socket}{ENDPOINT}",
+        "HTTP-метод: GET."
+    )
+
+
+def test_anon_delete_user():
+    """
+    Проверка доступ анонима (без токена) к DELETE `/user/{username}`.
+    """
+    response = requests.delete(
+        f"{socket.socket}{ENDPOINT}",
+        timeout=TIMEOUT
+    )
+    assert response.status_code == 403, (
+        f"Аноним не должен получать доступ к {socket.socket}{ENDPOINT}",
+        "HTTP-метод: DELETE."
+    )
+```
+### user delete
+Так как кейс пока что закончен, я хочу провести удаление тестового пользователя из БД.
+```Python
+def test_del_user():
+    """
+    Тест высылает DELETE-запрос на эндпоинт
+    `/user`, чтобы удалить пользователя.
+    Это защищенный эндпоинт, поэтому к запросу
+    добавляем токен, полученный на логине.
+    """
+    response = requests.delete(
+        f"{socket.socket}{ENDPOINT}",
+        headers={"Authorization": token.token},
+        timeout=TIMEOUT
+    )
+
+
+    assert response.status_code == 200, (
+        "Не удалось удалить пользователя.\n" + \
+        ERROR_USER_MESSAGE_INFO.format(status_code=response.response_code)
+    )
+
+
+def test_check_deleted_user_db(db_user):
+    """
+    Проверяем, что пользователь удалился из БД.
+    """
+    try:
+        db_user.one()
+    except NoResultFound:
+        pass
+    else:
+        raise AssertionError(
+            f"После удаления данные пользователя в БД: {db_user}."
+        )
+```
+По аналогии с тестированием на добавление пользователя я хочу отправить запрос на удаление на свой сервис + удостовериться в удалении через проверку БД.
+Если с запросом все понятно, то с БД  я делаю штуку интереснее: опять использую фиксуру для получения данных, но в этот раз, если функция `one()` вернет ошибку `NoResultFound` я буду считать, что тест успешно завершен.
