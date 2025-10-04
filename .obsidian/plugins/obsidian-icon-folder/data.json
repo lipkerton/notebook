@@ -56,13 +56,12 @@
   "Code/верстка/верстка.md": "LiArchive",
   "Code/Python/python на низком/python на низком.md": "LiArchive",
   "Code/Python/FastAPI/FastAPI.md": "LiArchive",
-  "work/work.md": "LiArchive",
-  "work/pytest/pytest.md": "LiArchive",
   "Code/nvim + VSCode/nvim + VSCode.md": "LiArchive",
   "Code/algorithms/algorithms.md": "LiArchive",
   "Code/leetcode/leetcode.md": "LiArchive",
   "Code/DevOps/git/git.md": "LiArchive",
   "Code/DevOps/docker/docker.md": "LiArchive",
   "Code/DevOps/DevOps.md": "LiArchive",
-  "Code/DevOps/ci-cd/ci-cd.md": "LiArchive"
+  "Code/DevOps/ci-cd/ci-cd.md": "LiArchive",
+  "Code/Python/pytest/pytest.md": "LiArchive"
 }
