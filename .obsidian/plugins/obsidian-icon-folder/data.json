@@ -58,10 +58,5 @@
   "Code/Python/FastAPI/FastAPI.md": "LiArchive",
   "Code/nvim + VSCode/nvim + VSCode.md": "LiArchive",
   "Code/algorithms/algorithms.md": "LiArchive",
-  "Code/leetcode/leetcode.md": "LiArchive",
-  "Code/DevOps/git/git.md": "LiArchive",
-  "Code/DevOps/docker/docker.md": "LiArchive",
-  "Code/DevOps/DevOps.md": "LiArchive",
-  "Code/DevOps/ci-cd/ci-cd.md": "LiArchive",
-  "Code/Python/pytest/pytest.md": "LiArchive"
+  "Code/leetcode/leetcode.md": "LiArchive"
 }
