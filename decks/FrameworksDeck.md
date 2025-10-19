@@ -690,3 +690,11 @@ security = HTTPBearer()
 credentials = Annotated[str, Depends(security)]
 ```
 <!--ID: 1756042523985-->
+
+Как создать миграцию alembic? #flashcard 
+```Bash
+alembic revision --autogenerate -m "init"
+```
+
+Как очистить историю миграций alembic? #flashcard 
+В папке `migrations/versions` нужно удалить все файлы миграций + нужно удалить из БД историю миграций, которая лежит в `alembic_versions` - лучше просто стереть всю таблицу. Удалить миграции точечно не получится, потому что алембик наследует одну миграцию от другой и убрать из этой цепочки компонент нельзя.

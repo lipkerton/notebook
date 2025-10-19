@@ -2,8 +2,4 @@
 [[Сети]]
 [[Сокет, порт, IP]]
 [[Code/Computer Science (База)/HTTP]]
-[[TCP-IP]]
 [[REST]]
-[[URL]]
-[[процессы и потоки]]
-[[OpenAPI]]

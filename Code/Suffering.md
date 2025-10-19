@@ -43,7 +43,11 @@
 - [x] Написать вопросы про параметры переменных. [[шаблонизация в Django#параметры переменных]]
 - [x] Повторить и написать вопросы о CTE [[CTE]]
 - [ ] Что такое Pydantic?
-- [x] Написать про Docker [[baza]]
+- [x] Написать про Docker [[Code/DevOps/docker/baza]]
 - [ ] Написать про docker-compose.yml [[docker-compose]]
-- [ ] Написать про xray
+- [x] Написать про xray
+- [ ] Что такое TLS и что такое REALITY в контексте Xray?
 - [ ] Дописать про тесты [[blog (проект)]]
+- [ ] Что такое context switch в контексте GIL (scheduler deschedules one thread to preempt another to start running)?
+- [ ] Интерпретатор в многопоточной программе паузит питон каждые 5 милисекунд.
+- [ ] Когда статисти
