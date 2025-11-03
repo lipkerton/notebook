@@ -1,4 +1,4 @@
-TARGET DECK: VerstDeck
+gitTARGET DECK: VerstDeck
 
 Сколько заголовков есть в HTML? #flashcard 
 Шесть. Первый - самый большой, а последний - самый маленький.

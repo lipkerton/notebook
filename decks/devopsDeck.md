@@ -211,3 +211,9 @@ CMD [<команда>]
 RUN <команда>
 ```
 <!--ID: 1760856190581-->
+
+Как залогиниться в DockerHub? #flashcard 
+```
+docker login -u <username>
+<пароль>
+```
