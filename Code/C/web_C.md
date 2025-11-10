@@ -264,3 +264,41 @@ public override string? ToString()
 }
 ```
 Зачем вообще нужно переоформление метода? Потому что метод `ToString()` изначально возвращает полное имя объекта, т.е.`Commission.Domain.ValueObjects.Currency`, а мне нужно, чтобы вместо полного имени возвращалось значение `Code`.
+Далее такой код:
+```C#
+namespace Commission.Domain.ValueObjects
+{
+	public class Currency
+	{
+		public string? Code { get; private set; }
+
+		public Currency(string code)
+		{
+			if (string.IsNullOrEmpty(code)) throw new ArgumentException(
+				"Currency code cannot be null or empty."
+			);
+			Code = code;
+		}
+		public override string? ToString() => Code;
+		public override bool Equals(object obj) =>
+			obj is Currency other && Code == other.Code;
+	}
+}
+```
+Последние две строки снова переписывают стандартный для каждого объекта C# метод `Equals()`. Однако пока меня интересует то, что линтер предупреждает меня - моя строка кода может выдать ошибку:
+
+> Nullability of type of parameter 'obj' doesn't match overridden member (possibly because of nullability attributes).
+
+У методов, которые я переписываю, существует базовая версия. Внутри этой базовой версии существуют правила, например, эта ошибка указывает на то, что параметры, которые я передаю в новую версию метода, должны обладать теми же свойствами, что и в базовой версии. 
+Здесь аннотация `nullability` не совпадает в моей версии с той, что в базовой версии. В базовой версии метод ожидает либо значение, либо `null`, а я написал аннотацию типа так, будто внутрь метода должно передаваться только значение.
+Чтобы убрать предупреждение нужно привести аннотацию параметра метода в соответствие с базовой версией:
+```C#
+public override bool Equals(object? obj) =>
+	obj is Currency other && Code == other.Code;
+```
+Это означает, что в параметр `obj` метода может попасть `null` и это нормально.
+По умолчанию `Equals()` сравнивает ссылки на объекты в памяти. Здесь я меняю поведение `Equals()`, чтобы объекты сравнивались по значениям атрибута `Code`.
+Здесь:
+- `obj is Currency other` - проверяет, что `obj` принадлежит к классу `Currency` и записывает его в переменную `other`.
+- `&&` - логический оператор И.
+- `Code == other.Code` - сравнивает атрибут `Code` текущего экземпляра с атрибутом другого экземпляра.
