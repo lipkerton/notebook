@@ -148,3 +148,24 @@ namespace MyLove
 
 Что такое *STACK memory* и *HEAP memory*? #flashcard 
 Это две части выделенного в оперативной памяти места под программу. *STACK memory* хранит референсы на объекты языка. *HEAP memory* хранит объекты языка.
+
+Как сделать конструктор класса? #flashcard 
+Конструктор класса похож на метод, однако он именуется аналогично имени класса:
+```C#
+public class Programm
+{
+	public Programm(<параметры>)
+	{
+		// здесь какой-то код.
+	}
+}
+```
+
+Как объявить атрибут класса? #flashcard 
+```C#
+public class Programm
+{
+	public string? Name { get; set; }
+}
+```
+
