@@ -3,3 +3,4 @@
 [[Сокет, порт, IP]]
 [[Code/Computer Science (База)/HTTP]]
 [[REST]]
+[[TCP-IP]]
