@@ -92,7 +92,7 @@ engine = create_engine()
 session = sessionmaker(bind=engine, expire_on_commit=False)
 ```
 Что такое `session`?
-### сессии в SQLAlchemy
+	### сессии в SQLAlchemy
 Сессия - это такая фича ORM, которая позволяет отправлять запросы в БД не по одному, а сразу скопом, отдавая на откуп ORM составление порядка и группировку запросов. Это означает, что ORM пойдет разбираться со всеми запросами, которые необходимо сделать к БД только когда мы обратимся к объекту сессии с просьбой закоммитить изменения в БД.
 Сессия:
 1) уберет лишние тысячу обращений в БД
@@ -2366,3 +2366,285 @@ sudo usermod -aG docker jenkins
 ```Bash
 docker login -u <имя пользователя в DockerHub>
 ```
+# js скрипты
+## скрипт для открытия окна создания поста
+Первое, что предлагает создать ИИ - переменную для хранения окна:
+```JS
+let postModal = null;
+```
+Теперь пишем первую функцию:
+```JS
+document.addEventListener('DOMContentLoaded', function() {
+    // Инициализируем модальное окно Bootstrap
+    postModal = new bootstrap.Modal(
+	    document.getElementById('createPostModal')
+	);
+    // Назначаем обработчик на кнопку "Написать пост"
+    document.querySelector('.create-post-btn').addEventListener(
+	    'click', function() {
+	        openPostModal();
+	    }
+    );
+    // Обработчик для кнопки публикаци
+	document.getElementById('publishBtn').addEventListener(
+		'click', publishPost
+	);
+    // Счетчики символов
+    setupCharacterCounters();
+    // Очистка формы при закрытии модального окна
+    document.getElementById('createPostModal').addEventListener(
+	    'hidden.bs.modal', function() {
+	        clearForm();
+	    }
+    );
+    // Предварительный просмотр при вводе (опционально)
+    setupPreview();
+});
+```
+Что тут происходит?
+Я начну с внешней обертки:
+```JS
+document.addEventListener('DOMContentLoaded', function() {});
+```
+- `document` - это объект, через который можно получить из кода JS доступ к элементам HTML.
+- `addEventListener` - метод, который регистрирует новый обработчик для указанного события.
+- `'DOMContentLoaded'` - тип события, на которое будет реагировать обработчик.
+- `function() {}` - то, чем мы будем реагировать.
+Теперь сама функция:
+```JS
+document.addEventListener('DOMContentLoaded', function() {
+    postModal = new bootstrap.Modal(
+	    document.getElementById('createPostModal')
+	);
+});
+```
+Моя задача создать *модальное окно* - это окно, которое открывается поверх основного контента страницы. Поэтому я делаю следующее:
+- `postModal` - переменная, в которую будет сложено окно.
+- `new bootstrap.Modal()` - создается новый объект класса `bootstrap.Modal()`
+- `'createPostModal'` - указывает на класс объекта в HTML, который требуется вызвать.
+Теперь нужно обработать кнопки:
+```JS
+document.addEventListener('DOMContentLoaded', function() {
+    // Инициализируем модальное окно Bootstrap
+    postModal = new bootstrap.Modal(
+	    document.getElementById('createPostModal')
+	);
+    // Назначаем обработчик на кнопку "Написать пост"
+    // document.querySelector('.create-post-btn').addEventListener(
+	//    'click', function() {
+	//        openPostModal();
+	//    }
+    //);
+    document.querySelector('.create-post-btn').addEventListener(
+	    'click', openPostModal
+    )
+});
+```
+- `document.querySelector('.create-post-btn')` - вызываем метод, который ищет на странице элемент с классом `create-post-btn`.
+- `addEventListener` - добавляем обработчик событий и определяем событие, которое хотим обработать `'click'` и то, чем будем обрабатывать - `function()`
+- `openPostModal()` - функция, которая открывает модальное окно и которая будет написана позже.
+Дальше строка:
+```JS
+document.getElementById('publishBtn').addEventListener(
+	'click', publishPost
+);
+```
+Здесь происходит примерно то же самое, что и с кнопкой выше - ищем элемент, добавляем обработчик, назначаем действие `'click'` и функцию.
+Далее, я устанавливаю с помощью функции (она будет написана позже) счетчики символов:
+```JS
+setupCharacterCounters();
+```
+Нужно настроить очистку формы после поста:
+```JS
+document.getElementById('createPostModal').addEventListener(
+	'hidden.bs.modal', clearForm
+);
+```
+- `'hidden.bs.modal'` - это специальное событие в Bootstrap, которое срабатывает, когда закрывается скрытое окно.
+- `clearForm` - вызываем функцию, которая очистит форму.
+Напишу все функции, которые пытался использовать здесь.
+Начну с функции открытия окна:
+```JS
+function openPostModal() {
+    postModal.show();
+    document.getElementById('postTitle').focus();
+}
+```
+Так как ранее я клал в переменную `postModal` экземпляр модального окна `bootstrap.Modal`, то теперь я могу использовать методы класса `Modal`. Здесь я использую `show()`, чтобы показать окно.
+Метод `focus()` устанавливает курсор в это новое поле для удобства.
+Счетчики:
+```JS
+function setupCharacterCounters() {
+    const titleInput = document.getElementById('postTitle');
+    const contentInput = document.getElementById('postContent');
+    const titleCounter = document.getElementById('titleCounter');
+    const contentCounter = document.getElementById('contentCounter');
+
+    titleInput.addEventListener(
+        'input', function() {
+            updateCounter(this, titleCounter, 100);
+        }
+    );
+    contentInput.addEventListener(
+        'input', function() {
+            updateCounter(this, contentCounter, 5000);
+        }
+    );
+}
+```
+В этом куске я нахожу четыре элемента, которые мне нужны - заголовок поста, сам пост, счетчик для заголовка, счетчик для поста. После этого мне нужно обновить счетчики на значение, которое для меня вычислит прослушиватель событий. Для каждого ввода символа я буду вызывать функцию `updateCounter` с нужными параметрами.
+Параметр `this` в данном случае ссылается на объект, который вызвал событие - `titleInput` или `contentInput`.
+```JS
+function updateCounter(inputElement, counterElement, maxLength) {
+    const length = inputElement.value.length;
+    counterElement.textContent = length;
+
+    counterElement.classList.remove('near-limit', 'over-limit');
+    if (length > maxLength * 0.9) {
+        counterElement.classList.add('near-limit')
+    };
+    if (length > maxLength) {
+        counterElement.classList.add('over-limit');
+        inputElement.classList.add('is-invalid');
+    } else {
+        inputElement.classList.remove('is-invalid');
+    }
+}
+```
+Функция `updateCounter()` принимает три параметра - элемент ввода (заголовок или поле ввода), сам счетчик и максимальную длину возможного текста.
+Первым делом я делаю константу `length`, которая хранит текущую длину элемента ввода. Затем я задаю счетчику значение константы `length`.
+После, я просто добавляю красок счетчику - обращаемся к объекту счетчика и получаем список его классов. Из списка классов убираем `'near-limit', 'over-limit'` на всякий случай. Затем я пишу два условия - они проверяют длину текста и в зависимости от нее добавляют элементу дерева те классы, которые я убрал.
+Теперь мне нужно написать функцию публикации поста:
+```JS
+async function publishPost() {
+    const title = document.getElementById('postTitle').value.trim();
+    const content = document.getElementById('postContent').value.trim();
+    if (!validateForm(title, content)) {
+        return;
+    }
+    showLoading(true);
+    const jwtToken = getJWTToken();
+    const postData = {
+        title: title,
+        content: content
+    }
+    try {
+        const response = await fetch('/api/p', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData)
+        });
+        const result = await response.json();
+        if (response.ok) {
+            showMessage('cool story', 'success');
+            setTimeout(() => {
+                postModal.hide();
+                addPostToFeed(result.post);
+                updatePostCount(1);
+            }, 1500);
+        } else {
+            throw new Error(result.error || 'something went wrong during shitposting')
+        }
+    } catch (error) {
+        console.error('ошибка:', error);
+        showMessage(`error ${error.message}`, 'danger');
+    } finally {
+        showLoading(false);
+    }
+}
+```
+Здесь происходит очень много всего:
+1) мне нужно, чтобы по нажатию кнопки отправлялся post-запрос к моему коду на Python. За меня этот запрос отправит JS-скрипт:
+```JS
+const response = await fetch('/api/p', {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json',
+	},
+	body: JSON.stringify(postData)
+});
+const result = await response.json();
+```
+Функция `fetch()` - это API JS для составления сетевых запросов. Отправляет запрос на сервер, возвращает ответ. Ответ можно проверить.
+Функция `JSON.stringify()` превращает мой объект JS в JSON для отправки.
+Далее, я жду ответ, и когда получаю его тут же превращаю то, что получилось в JSON.
+2) на сервер я отправляю токен + информацию в `postData`.
+```JS
+const title = document.getElementById(
+	'postTitle'
+).value.trim();
+const content = document.getElementById(
+	'postContent'
+).value.trim();
+const postData = {
+	title: title,
+	content: content
+}
+```
+Функция `trim()` очищает у текстового контента пробелы с начала и с конца.
+3) проверяю, что пришло в ответе
+```JS
+if (response.ok) {
+	showMessage('cool story', 'success');
+	setTimeout(() => {
+		postModal.hide();
+		addPostToFeed(result.post);
+		updatePostCount(1);
+	}, 1500);
+} else {
+	throw new Error(result.error || 'something went wrong during shitposting')
+}
+```
+Здесь, я показываю сообщение о том, что сообщение было отправлено успешно в случае, если ответ пришел `OK`. Модальное окно скрывается с помощью метода `hide()`. Далее, я вызываю функцию `addPostToFeed()` и обновляю счетчик постов. Все это запаковано в таймер, чтобы, в случае ошибки при добавлении поста, у нас была выброшена ошибка на экран.
+4) так как все было завернуто в `try` мне еще нужно добавить `catch` и `finally`.
+```JS
+catch (error) {
+	console.error('ошибка:', error);
+	showMessage(`ошибка ${error.message}`, 'danger');
+}
+finally {
+	showLoading(false);
+}
+```
+В одной из строк я вызываю функцию валидации. Ее сначала нужно написать:
+```JS
+function validateForm(title, content) {
+    const formMessage = document.getElementById('formMessage');
+    formMessage.classList.add('d-none');   
+    // валидация
+    if (!title) {
+        showFormMessage('cant be empty', 'danger');
+        document.getElementById('postTitle').focus();
+        return false;
+    }
+    if (title.length <= 3) {
+        showFormMessage('pls 3 symbols at least', 'danger');
+        document.getElementById('postTitle').focus();
+        return false;
+    }
+    if (title.length > 100) {
+        showFormMessage('title is too big', 'danger');
+        document.getElementById('postTitle').focus();
+        return false;
+    }
+    if (!content) {
+        showFormMessage('cant be empty', 'danger');
+        document.getElementById('postContent').focus();
+        return false;
+    }
+    if (content.length <= 10) {
+        showFormMessage('pls 10 symbols at least', 'danger');
+        document.getElementById('postContent').focus();
+        return false;
+    }
+    if (content.length > 5000) {
+        showFormMessage('content is too big', 'danger');
+        document.getElementById('postContent').focus();
+        return false;
+    }
+    return true;
+}
+```
+Тут все просто - нахожу форму. И начинаю таскать элементы на проверку. Если в каком-нибудь элементе возникает ошибка, то метод `focus()` поставит курсор туда.

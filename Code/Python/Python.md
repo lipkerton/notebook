@@ -6,6 +6,7 @@
 [[ООП]]
 [[python на низком]]
 [[FastAPI]]
+[[pytest]]
 [[install python debian]]
 [[venv pipenv virtualenv]]
 [[logging]]
