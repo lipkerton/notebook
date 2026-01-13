@@ -6,3 +6,5 @@
 [[decks/pythonDeck|pythonDeck]]
 [[JSDeck]]
 [[linuxDeck]]
+[[CDeck]]
+[[devopsDeck]]

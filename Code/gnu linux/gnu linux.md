@@ -6,3 +6,4 @@
 [[pass gpg]]
 [[SSH]]
 [[установка arch]]
+[[xray]]
