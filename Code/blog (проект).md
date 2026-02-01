@@ -1,4 +1,4 @@
-Стек: FastAPI, SQLAlchemy
+Стек: FastAPI, SQLAlchemy, Alembic, PostgreSQL
 
 Я подумал, что было бы неплохо создать небольшой блог на FastAPI. В качестве СУБД буду использовать PostgreSQL.
 Для начала я создал структуру проекта:

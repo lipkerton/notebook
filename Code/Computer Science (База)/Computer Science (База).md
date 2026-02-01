@@ -4,3 +4,4 @@
 [[Code/Computer Science (База)/HTTP]]
 [[REST]]
 [[TCP-IP]]
+[[MVC MVP MVVM]]

@@ -2,7 +2,7 @@
 [[tools]]
 [[Computer Science (База)]]
 [[Python]]
-[[C]]
+[[Csharp]]
 [[SQL]]
 [[nvim + VSCode]]
 [[gnu linux]]
