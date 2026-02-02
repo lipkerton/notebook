@@ -5,3 +5,4 @@
 [[REST]]
 [[TCP-IP]]
 [[MVC MVP MVVM]]
+[[CRUD CQRS]]
