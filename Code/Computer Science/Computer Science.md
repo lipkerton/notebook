@@ -1,7 +1,7 @@
 [[Паттерны обмена сообщениями]]
 [[Сети]]
 [[Сокет, порт, IP]]
-[[Code/Computer Science (База)/HTTP]]
+[[Code/Computer Science/HTTP]]
 [[REST]]
 [[TCP-IP]]
 [[MVC MVP MVVM]]

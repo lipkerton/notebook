@@ -1,6 +1,6 @@
 [[usefull resources]]
 [[tools]]
-[[Computer Science (База)]]
+[[Computer Science]]
 [[Python]]
 [[Csharp]]
 [[SQL]]
