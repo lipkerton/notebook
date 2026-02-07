@@ -1,4 +1,4 @@
-я напишу код:
+ напишу код:
 ```C
 #include <stdio.h>
 #include <stdlib.h>
