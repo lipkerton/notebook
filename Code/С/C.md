@@ -1,2 +1,3 @@
-[[first prog]]
+[[process spin]]
+[[memory spin]]
 [[pointer]]
