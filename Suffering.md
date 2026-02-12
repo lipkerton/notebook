@@ -48,4 +48,4 @@
 - [x] Написать о `case/match` в Python.
 - [ ] Как питон allocates memory?
 - [ ] Дописать про крутку процессора [[opsystems intro]]
-- [ ] 
+- [ ] Что такое композит? [[InputAction]]

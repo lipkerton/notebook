@@ -3,3 +3,4 @@
 [[trigger]]
 [[unity input systems]]
 [[door codign]]
+[[InputAction]]

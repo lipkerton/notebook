@@ -48,3 +48,5 @@ public class PlayerConroller2D : MonoBehaviour
 	...
 }
 ```
+теперь я начну писать метод `Update()`. 
+
