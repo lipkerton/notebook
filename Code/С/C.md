@@ -4,3 +4,5 @@
 [[malloc и память]]
 [[concurrency]]
 [[volatile]]
+[[write file]]
+[[basics]]

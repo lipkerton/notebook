@@ -49,4 +49,4 @@
 - [ ] Как питон allocates memory?
 - [x] Дописать про крутку процессора [[opsystems intro]]
 - [x] Что такое композит? [[InputAction]]
-- [ ] дописать про `volatile` [[volatile]]
+- [x] дописать про `volatile` [[volatile]]
