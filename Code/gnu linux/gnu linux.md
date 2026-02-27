@@ -7,3 +7,4 @@
 [[SSH]]
 [[установка arch]]
 [[xray]]
+[[proxy vpn]]
