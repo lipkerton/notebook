@@ -7,4 +7,5 @@
 [[SSH]]
 [[установка arch]]
 [[xray]]
-[[proxy vpn]]
+[[Code/gnu linux/proxy vpn]]
+[[ufw]]
