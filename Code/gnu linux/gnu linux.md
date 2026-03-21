@@ -8,3 +8,5 @@
 [[установка arch]]
 [[xray]]
 [[sources]]
+[[Code/gnu linux/proxy vpn]]
+[[ufw]]
