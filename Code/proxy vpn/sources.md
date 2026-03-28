@@ -6,4 +6,3 @@ deepwiki https://deepwiki.com/chika0801/sing-box-examples/4.3-dns-configuration-
 xray core https://xtls.github.io/ru/
 marzban https://github.com/Gozargah/Marzban
 ikev2 + strongswan https://www.digitalocean.com/community/tutorial-collections/how-to-set-up-an-ikev2-vpn-server-with-strongswan
-farewall-min 
