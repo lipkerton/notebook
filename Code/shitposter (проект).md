@@ -352,4 +352,364 @@ host.Run();
 первая строка - указатель на пространство имен программы, чтобы все файлы внутри данного пространства имен могли ссылаться друг на друга.
 `HostApplicationBuilder` - это контейнер для настроек хоста. хост - это то, где будет крутиться моя программа. `CreateApplicationBuilder()` как раз создает такого хоста с аргументами (если они есть) командной строки.
 так как `HostApplicationBuilder` является контейнером, то мне в него нужно добавить сервисы, которые будут вызваны при старте контейнера. именно это делает `AddHostedService<Worker>()`.
-когда я говорю, что добавляю сервисы, то на самом деле я имею в виду классы, которые записываются в этот контейнер. смысл контейнера в механике *DI (Dependency Injection)*
+когда я говорю, что добавляю сервисы, то на самом деле я имею в виду классы, которые записываются в этот контейнер. смысл контейнера в механике *DI (Dependency Injection)* и, если говорить кратко, то она заключается в автоматической инициализации объектов классов и параметров.
+## DDD
+и в этот момент ревьюер написал мне, что я дурачок и сделал все не так. так как C# довольно масштабный язык с кучей нюансов, на нем необходим писать чисто. особенно важно в таком контексте правильно выстроить структуру приложения.
+основной ориентир - *domain driven development (DDD)*. эта структура применяется, когда у приложения есть бизнес-логика + логика разработки и они находятся раздельно. чтобы это работало приложение делится на четрые части:
+- `Domain` - модели и константы
+- `Infrastructure` - репозитории (логика хранения данных)
+- `Application` - бизнес логика
+- `API` - интерфейс всего приложения
+так же есть несколько мелких вещей. 
+`Domain` должен содержать описание моделей приложения, но при этом не должен быть раздутым за счет любой дополнительной логики. например, я не могу размещать там интерфейсы для классов `Infrastructure`, так как скорее всего реализация таких интерфейсов требует дополнительных пакетов NuGet, которых в `Domain` быть не должно.
+`Infastructure` реализует только логику работы с хранилищами.
+`Application` - это вроде оркестратора, который должен запускать бизнес-логику и интегрировать в нее хранилища и модели из `Domain`.
+`API` - это точка входа в приложение + настройки приложения.
+## связи
+я сделал `Infrastructure`, `Application`, `Domain` участки приложения с помощью шаблона `classlib`:
+```PowerShell
+dotnet new classlib -o listener.Infrastructure
+dotnet new classlib -o listener.Application
+dotnet new classlib -o listener.Domain
+```
+а вот точка входа будет реализована за счет шаблона `worker`:
+```PowerShell
+dotnet new worker -o listener.API
+```
+теперь эти проекты нужно связать между собой референсами, иначе они не будут знать друг о друге ничего. у референсов так же есть своя система - они долны идти лесенкой. `API` ссылается на `Application`, который ссылается на `Ifrastructure`, который ссылается на `Domain`.
+чтобы их связать нужно использовать:
+```PowerShell
+dotnet add reference .\listener.Infrastructure\ --project .\listener.Domain\
+```
+после команды появившаяся ссылка будет отображаться в файле проекта `listener.Domain`:
+```XML
+<ItemGroup>
+  <ProjectReference Include="..\listener.Infrastructure\listener.Infrastructure.csproj" />
+</ItemGroup>
+```
+такое нужно проделать со всеми проектами:
+```PowerShell
+dotnet add reference .\listener.Application\ --project .\listener.Infrastrucrture\
+dotnet add reference .\listener.API\ --project .\listener.Application\
+```
+забавный факт - потом, когда я буду устанавливать пакеты в нужные проекты, эти пакеты будут наследоваться каждым проектом выше в цепочке. так, `Domain` вообще не знает о существовании всех остальных проектов в приложении, а `Application` будет наследовать пакеты для работы с репозиториями из `Infrastructure`.
+## domain
+чтобы не делать криво, в `Domain` нужно прописать структуру объекта новости. когда я получу новость от API мне нужно будет распарсить ее в этот объект.
+сам объект будет классом, но я не могу просто создать файл и запихать туда класс. каждый такой класс должен хранится отдельно от другого в папке `Entities`:
+```C#
+namespace listener.Domain.Entities;
+
+public class NewsItem
+{
+    public required string Id { get; set; }
+    public required DateTime PubDate { get; set; }
+    public required string Header { get; set; }
+    public string Content { get; set; } = string.Empty;
+}
+```
+свойство `required` предполагает, что в экземпляре класса `NewsItem` обязано быть значение для этого поля. тут стоит сразу обсудить разницу между полями:
+```C#
+public required string Id { get; set; }
+// ИЛИ
+public string? Id { get; set; }
+// ИЛИ
+public string Id { get; set; } = string.Empty;
+```
+первое означает, что внутри поля обязано быть значение и оно не может быть пустой строкой. т.е. такая запись:
+```C#
+public required string Id { get; set; } = string.Empty;
+```
+не прокатит при инициализации экземпляра класса без значения.
+запись `string?` означает, что внутрь свойства при инициализации экземпляра может быть записана либо строка, либо `null`, а запись `= string.Empty` означает, что при инициализации экземпляра без значения для поля в него будет записана пустая строка.
+и это все, что пока будет написано внутри `Domain`.
+# infrastructure
+как я уже сказал, тут должна быть реализация репозиториев. каждый репозиторий должен являться классом, но для каждого из них должен быть написан интерфейс для обращения.
+стоит вспомнить, что основа всего проекта - это один *DI* контейнер, к которому я подключаю все остальное в формате сервисов. репозитории так же являются сервисами. поэтому их нужно прописать в директории `Services`. но начну я с интерфейсов - они находятся внутри `Services` в директории `Interfaces`. 
+## logrepository
+для теста пусть репозиторием для новостей будут консольные логи:
+```C#
+using listener.Domain.Entities;
+
+namespace listener.Infrastructure.Repositories.Interfaces;
+
+public interface ILogRepository
+{
+    Task SaveNews(NewsItem[] newsItems, CancellationToken cancelToken);
+}
+```
+что такое интерфейсы? интерфейс это что-то вроде описания того, что должен реализовать класс, который ссылается на этот интерфейс. например, в данном случае мой будущй класс `LogRepository` должен реализовать метод `SaveNews` с указанными параметрами.
+прикол интерфейсов не только в том, что это просто описание для будущего класса, но еще и в том, что классы могут наследовать несколько интерфейсов (при том, что класс может наследовать только один другой класс). кстати, интерфейс не накладывает ограничения на то как именно будет реализован метод - синхронный или асинхронный.
+тут есть еще один интересный момент: ранее я написал для метода `SaveNews` параметр `IEnumerable<NewsItem>`. по сути `NewsItem[]` и `IEnumerable<NewsItem>` схожие в данном контексте конструкции, но чем они на самом деле различаются?
+`NewsItem[]` - это массив. массив в C# хранит непрерывно свои элементы в памяти. к элементам массива можно получить доступ по индексу. `IEnumerable<NewsItem>` - это голый интерфейс любого перечисления; в нем нет реализации доступа по индексу, нет возможности изменить элемент по индексу и т.д.; при этом `IEnumerable` может стать другой коллекцией, т.к. у него есть методы трансформации.
+в данном случае я отдаю предпочтение массиву, потому что всегда нужно держать в голове, что проект может масштабироваться в будущем, поэтому внутри сервиса мне может понадобится работа с элементами внутри массива.
+когда интерфейс сделан, можно пойти написать реализацию. реализацию я буду писать  внутри `Services`:
+```C#
+using listener.Infrastructure.Repositories.Interfaces;
+
+namespace listener.Infrastructure.Repositories;
+
+public class LogRepository : ILogRepository
+{
+    private readonly ILogger<LogRepository> _logger;
+
+    public LogRepository(
+        ILogger<LogRepository> logger
+    )
+    {
+        _logger = logger;
+    }
+}
+```
+пока что я только сделал класс, а внутрь него поместил атрибут класса `_logger` и конструктор класса `LogRepository(ILogger<LogRepository> logger){...}`. конструктор класса будет вызываться каждый раз, когда будет создаваться экземпляр класса. внутрь экземпляра каждый раз будет передан объект `ILogger<LogRepository>`.
+теперь внутри класса нужно написать метод `SaveNews()`:
+```C#
+public Task SaveNews(
+	NewsItem[] newsItems,
+	CancellationToken cancelToken
+)
+{
+	foreach (NewsItem newsItem in newsItems)
+	{
+		_logger.LogInformation(">>> Получена новость:\nID: {Id}\nHeader: {Header}\n", newsItem.Id, newsItem.Header);
+
+		if (!string.IsNullOrEmpty(newsItem.Content))
+		{
+			_logger.LogDebug("Сontent: {Content}\n", newsItem.Content);
+		}
+	}
+	return Task.CompletedTask;
+}
+```
+метод работает асинхронно. внутри метода цикл `foreach` перебирает полученные новости и печатает каждую новость в лог.
+хотя это не самая правильная реализация репозитория (т.к. здесь нет, строго говоря, репозитория - метод просто печатает новости в лог), тут есть пара интересных моментов. во-первых, я реализую метод в соответствии с интерфейсом, потому что это вольность, которую позволяет сделать интерфейс. во-вторых, я делаю внутри цикл `foreach`, который будет перебирать элементы в списке новостей один за другим. внутри для каждой новости логгер будет печатать информацию в лог.
+объект `Task` - это задача, которую я могу запустить в асинхронном формате и синхронном формате. эту задачу я повешу как сервис и зарегистрирую его в контейнере. именно поэтому в конце функции я верну `CompletedTask`, чтобы задача была обозначена как завершенная в списке задач.
+
+>[!important] если внутри метода нет `await`, то он считается синхронным, поэтому применение к нему слова `async` (`public async Task`) будет лишним - он все равно будет выполнен синхронно и компилятор об этом предупредит.
+
+зачем, если метод синхронный, мне вообще нужна реализация через `Task`? формально, не нужна, но я уже прописал в своем интерфейсе требование, чтобы мой  метод возвращал `Task`, так же как и интерфейсы всех других репозиториев будут возвращать `Task`. ну и потом, кто знает, может быть в метод все же будут добавлены асинхронные команды и тогда мне не нужно будет вносить много правок в интерфейс.
+## jsonrepository
+дополнительно к реализации репозитория через логгирование, я могу так же сделать реализацию репозитория через запись в JSON файлы. сначала интерфейс:
+```C#
+using listener.Domain.Entities;
+
+namespace listener.Infrastructure.Repository.Interfaces;
+
+public interface IJsonRepository
+{
+    Task SaveNews(NewsItem[] newsItems, CancellationToken cancelToken);
+}
+```
+и сама реализация:
+```C#
+using System.Text.Json;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using listener.Domain.Entities;
+using listener.Infrastructure.Repositories.Interfaces;
+
+namespace listener.Infrastructure.Repositories;
+
+public class JsonRepository : IJsonRepository
+{
+    private readonly ILogger<JsonRepository> _logger;
+    private readonly RepositorySettings _settings;
+
+    public JsonRepository(
+        ILogger<JsonRepository> logger,
+        IOptions<RepositorySettings> settings
+    )
+    {
+        _logger = logger;
+        _settings = settings.Value;
+    }
+}
+```
+как и в прошлый раз, я написал тут только начало, но тут уже куча интересных механик. самое новое - `IOptions`. `IOptions` - это надстройка над `IConfiguration`, а `IConfiguration` позвояет брать из `appsettings.json` параметры, которые мне нужны для работы `JsonRepository`.
+для начала следует посмотреть на сами параметры:
+```JSON
+"RepositorySettings": {
+  "JsonRepository": {
+	"JsonResultFolder": "JsonResult",
+	"CleanupInterval": 30
+  }
+}
+```
+так как я планирую добавить еще один репозиторий - для него будет сделана еще одна порция настроек. поэтому `JsonRepository` является вложенным словарем с двумя настройками - папкой для хранения результатов и значением промежутка между очистками этой директории результатов.
+эти параметры я планирую использовать в реализации интерфейса `IJsonRepository`. чтобы их вытащить можно воспользоваться `IConfiguration` или `IOptions`.
+`IConfiguration` в целом прост и понятен для использования:
+```C#
+string jsonResultFolder = _configuration.GetValue<string>(
+	"APISettings:RepositorySettings:JsonRepository:JsonResultFolder",
+	"JsonResult"
+);
+```
+здесь я через экземпляр `IConfiguration` обращаюсь к `appsettings` с параметрами, как к словарю.
+однако с этим есть проблема - так как я по сути вбиваю такую большую строку первым аргументом для метода `GetValue`, то я легко могу ошибиться где-то по пути.
+чтобы этого не допустить можно использовать `IOptions`. `IOptions` предлагает сделать схему параметров из `appsettings`, чтобы сериализовать `appsettings.json` в объекты C#:
+```C#
+namespace listener.Domain.Configuration;
+
+public class RepositorySettings
+{
+    public JsonRepository jsonRepository { get; set; } = new();
+}
+
+public class JsonRepositorySettings
+{
+    public string jsonResultFolder { get; set; } = string.Empty;
+    public DateTime cleanupInterval { get; set; }
+}
+```
+когда я сделал такие схемы, я могу их использовать в своем классе в таком формате:
+```C#
+private readonly RepositorySettings _settings;
+...
+IOptions<RepositorySettings> settings;
+```
+при этом внутри `settings` мои параметры будут лежать в ключе `Value`:
+```C#
+_settings = settings.Value;
+...
+_settings.jsonRepository.jsonResultFolder;
+```
+кстати, `IOptions` видит параметры в `appsettings.json`, т.к. он по сути пользуется механизмами `IConfiguration`, который является регистрируемым в *DI* контейнере сервисом. но к регистрации сервисов я вернусь позже.
+главное, что теперь внутри моего `JsonRepository` я могу написать корректно метод `SaveNews`:
+```C#
+public async Task SaveNews(NewsItem[] newsItems, CancellationToken cancelToken) {
+	try
+	{
+		string jsonResultFolder = _settings.jsonRepository.jsonResultFolder;
+		if (!Directory.Exists(jsonResultFolder)) Directory.CreateDirectory(jsonResultFolder);
+		string fileName = $"{DateTime.UtcNow:yyyyMMddHHmmssfffffff}.json";
+		string filePath = Path.Combine(jsonResultFolder, fileName);
+
+		JsonSerializerOptions jsonOptions = new JsonSerializerOptions { WriteIndented = true };
+		string json = JsonSerializer.Serialize(newsItems, jsonOptions);
+
+		await File.WriteAllTextAsync(filePath, json, cancelToken);
+		_logger.LogInformation("Сохранено {count} новостей в файл: {path}", newsItems.Count(), filePath);
+	}
+	catch (Exception ex)
+	{
+		_logger.LogError("Ошибка при сохранении новостей в файл! {ex}", ex);
+	}
+}
+```
+здесь я сначала получаю путь к результирующей папке из `appsettings.json` и тут же выполняю проверку "а существует ли такая папка вообще?" - если директории нет, то я ее создаю с помощью стандартной библиотеки `Directory`.
+далее я комбинирую путь до директории с именем файла, куда вшит форматер даты и времени, чтобы имя файла состояло только из уникальной комбинации цифр.
+внутри C# есть удобный сериализатор JSON файлов, который дает мне возможность просто взять мой массив с объектами `NewsItems` и распаковать его в готовый JSON объект.
+## configureservices
+когда интерфейсы и реализации интерфейсов сделаны, осталось только зарегать новые сервисы в главном файле библиотеки - `ConfigureServices.cs`:
+```C#
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using listener.Domain.Configuration;
+using listener.Infrastructure.Repositories;
+using listener.Infrastructure.Repositories.Interfaces;
+
+namespace listener.Infrastructure;
+
+public static class ConfigureServices
+{
+    public static IServiceCollection AddInfrastructureServices(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
+    {
+        services.Configure<RepositorySettings>(
+            configuration.GetSection("RepositorySettings")
+        );
+        services.AddScoped<IJsonRepository, JsonRepository>();
+        services.AddScoped<ILogRepository, LogRepository>();
+        return services;
+    }
+}
+```
+здесь я беру статический класс `IServiceCollection`, который должен регистрировать все сервисы, которые я описал в `Infrastructure`. грубо говоря, в моем проекте есть коллекция сервисов, которые лежат в контейнере и будут задействованы на старте приложения. в этом файле я как бы регистрирую ту часть сервисов, которые относятся к `Infrastructure`.
+в классе `ConfigureServices` реализован один единственный метод - `AddInfrastructureServices`, который должен вернуть список сервисов. сервисы эти записываются в контейнер типа `IServiceCollection`.
+что за `this IServiceCollection services`? это *метод расширения*. его механика такова: берем оригинальный объект (класс `IServiceCollection`) и добавляем к нему новый метод. именно добавление нового метода и называется *расширением*.
+а как это будет выглядеть в итоговом `Program.cs`?
+```C#
+services.Service.AddInfrastructureServices(builder.Configuration);
+```
+как именно `Program.cs` понимает, что метод был расширен? все просто - на стадии компиляции C# сканирует код и находит статические классы с *методами расширения*.
+после того как сервис добавлен часть `Infrastructure` закончена.
+# application
+теперь нужно описать `application`. это место, где происходит вся бизнес-логика приложения и, следовательно, вся грязь.
+здесь мне нужно написать как минимум два сервися и два интерфейса - новостной сервис-оркестратор и сервис, который содержит все методы для обращения к API. мне хочется их разделить, чтобы написать внутри второго сервиса только саму логику методов; при этом определить когда и как их запускать я хочу в первом сервисе.
+## interfaxgateway
+интерфейс этого сервиса будет таким:
+```C#
+using listener.Domain.Entities;
+namespace listener.Application.Services.Interfaces;
+
+public interface IInterfaxGateway
+{
+    Task<bool> OpenSession (CancellationToken cancelToken);
+    Task<NewsItem[]?> GetRealtimeNewsByProduct (CancellationToken cancelToken);
+    Task<NewsItem> GetEntireNewsByID (NewsItem newsItem, CancellationToken cancelToken);
+}
+```
+три метода с обращениями на разные эндпоинты. первый будет писать запрос на аутентификацию на сервисе. второй отправит запрос для получения новостей за период. третий для каждой новости, которая была получена предыдущим запросом, отправляет запрос для получения содержания новости.
+тут сложность в том, что каждый метод должен что-то вернуть. `OpenSession` простой - возвращает успех или неуспех операции аутентификации. `GetRealtimeNewsByProduct` сложнее, потому что он должен вернуть либо список новостей, либо ничего в случае неудачи - именно поэтому в возвращаемом типе метода есть знак вопроса `Task<NewsItem[]?>`. третий метод *всегда* должен возвращать объект `NewsItem` и при этом  принимает он на вход всегда список из объектов `NewsItem`.
+теперь реализация:
+```C#
+public class InterfaxGateway : IInterfaxGateway
+{
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ILogger<InterfaxGateway> _logger;
+    private readonly APISettings _settings;
+
+    public InterfaxGateway(
+        IHttpClientFactory httpClientFactory,
+        ILogger<InterfaxGateway> logger,
+        IOptions<APISettings> settings
+    )
+    {
+        _httpClientFactory = httpClientFactory;
+        _logger = logger;
+        _settings = settings.Value;
+    }
+}
+```
+когда я делаю вступление к классу, то все выглядит примерно так же как и в классах-репозиториях - мне нужно получить логгер и настройки. здесь так же добавляется  `HttpClientFactory` - это генератор экземпляров класса `HttpClient`, который будет по запросу создавать мне клиентов для обращения к API.
+если коротко, то фабрика помогает избежать издержек создания экземпляров `HttpClient` вручную. нужно это потому, что создание `HttpClient` вручную всегда требует сокет (сокет это связка IP и порта), т.е. занимает свободный порт компьютера; при создании кучи клиентов вручную есть риск, что сокеты вскоре закончатся, потому что даже при завершении TCP соединения сам сокет для него еще занят некоторое время (это называется `TIME_WAIT`).
+теперь я напишу первый метод - он должен выполнять аутентификацию:
+```C#
+public async Task<bool> OpenSession(CancellationToken cancelToken)
+{
+	HttpClient client = _httpClientFactory.CreateClient("SOAPClient");
+	string APIUrl = _settings.OpenSession.Endpoint;
+	string xmlPath = Path.Combine(
+		_settings.XMLRequestsFolder,
+		_settings.OpenSession.XML
+	);
+	string xmlContent = await File.ReadAllTextAsync(xmlPath, cancelToken);
+	
+	StringContent content = new StringContent(xmlContent, Encoding.UTF8, "text/xml");
+
+	_logger.LogInformation("Запрос на {url}", APIUrl);
+	HttpResponseMessage response = await client.PostAsync(APIUrl, content, cancelToken);
+
+	string responseContent = await response.Content.ReadAsStringAsync(cancelToken);
+	_logger.LogInformation("{Body}", responseContent);
+	return response.IsSuccessStatusCode;
+}
+```
+сразу же первая строка тут немного смущает - что такое `SOAPClient`? об этой штуке можно думать, как о профиле клиента, на основе которого фабрика будет создавать клиента для будущего запроса.
+сам профиль создается при регистрации сервиса:
+```C#
+services.AddSingleton<CookieContainer>();
+services.AddHttpClient("SOAPClient")
+	.ConfigurePrimaryHttpMessageHandler(sp => {
+		CookieContainer cookieContainer = sp.GetRequiredService<CookieContainer>();
+		return new HttpClientHandler
+		{
+			CookieContainer = cookieContainer,
+			UseCookies = true
+		};
+	}
+);
+```
+так как мне нужно будет работать с куки, я регистрирую сначала синглтон куки контейнера. затем я пишу свой профиль HTTP клиента, чтобы так же добавить его в контейнер.
+`ConfigurePrimaryHttpMessageHandler()` - это метод, который будет создавать обработчик сообщений HTTP. он будет в автоматическом режиме следить за всем, что необходимо для обмена HTTP запросами - куки, сертификаты, прокси и т.д. почему это `Primary` обработчик? потому что в C# реализована цепочка обработчиков HTTP обмена, а `Primary` - это основной обработчик, который непосредственно отправляет запрос и получает ответ. метод `ConfigurePrimaryHttpMessageHandler()` позволяет мне сконфигурировать такой обработчик и здесь я его конфигурирую так, чтобы все мои HTTP запросы использовали куки.
