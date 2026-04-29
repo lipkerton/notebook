@@ -1,0 +1,8 @@
+[[process spin]]
+[[memory spin]]
+[[pointer]]
+[[malloc и память]]
+[[concurrency]]
+[[volatile]]
+[[write file]]
+[[basics]]

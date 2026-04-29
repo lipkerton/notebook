@@ -1,0 +1,6 @@
+| Name          | Description                                                              | Link                                                                                         | Category |
+| ------------- | ------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- | -------- |
+| [[Postman]]   | Особенно удобен, когда нужно отправить запрос на REST API ресурс.        | [https://www.postman.com/](https://www.postman.com/)                                         | program  |
+| [[netcat]]    | Для создания сетевых пакетов, отправки пакетов, просмотра пакетов и т.д. | [https://www.varonis.com/blog/netcat-commands](https://www.varonis.com/blog/netcat-commands) | program  |
+| [[scapy]]     | Для создания сетевых пакетов, отправки пакетов, просмотра пакетов и т.д. | [https://scapy.net/](https://scapy.net/)                                                     | program  |
+| [[Wireshark]] | Ловим пакеты, смотрим в пакеты, отправляем пакеты.                       | [https://www.wireshark.org/](https://www.wireshark.org/)                                     |          |
