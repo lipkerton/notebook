@@ -1,5 +1,4 @@
 [[usefull resources]]
-[[tools]]
 [[Computer Science]]
 [[Python]]
 [[Csharp]]
@@ -11,7 +10,4 @@
 [[leetcode]]
 [[Code/DevOps/git/git]]
 [[Suffering]]
-[[dictionary]]
-[[blog (проект)]]
-[[порты для серверов]]
 [[proxy vpn]]

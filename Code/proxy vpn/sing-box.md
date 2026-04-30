@@ -1,5 +1,4 @@
 клиент: https://sing-box.sagernet.org/installation/package-manager/
-я ненавижу китай.
 # server shadowtls + shadowsocks
 референс: https://bulianglin.com/archives/sing-box.html
 серверная конфигурация была проста:
