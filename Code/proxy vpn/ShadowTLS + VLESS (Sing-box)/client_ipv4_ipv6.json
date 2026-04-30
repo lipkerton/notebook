@@ -1,0 +1,410 @@
+{
+	"log": {
+		"level": "debug",
+		"timestamp": true
+	},
+	"dns": {
+		"servers": [
+			{
+				"tag": "dns_fakeip",
+				"type": "fakeip",
+				"inet4_range": "198.18.0.0/15",
+				"inet6_range": "fc00::/18"
+			},
+			{
+				"tag": "dns_hosts",
+				"type": "hosts",
+				"predefined": {
+					"one.one.one.one": [ 
+						"1.1.1.1",
+						"1.0.0.1",
+						"2606:4700:4700::1111",
+						"2606:4700:4700::1001"
+					]	
+				}
+			},
+			{
+				"tag": "dns_proxy",
+				"type": "https",
+				"detour": "auto",
+				"server": "one.one.one.one",
+				"domain_resolver": "dns_hosts",
+				"server_port": 443
+			},
+
+			{
+				"tag": "dns_direct",
+				"type": "https",
+				"server": "common.dot.dns.yandex.net",
+				"domain_resolver": "dns_resolver",
+				"server_port": 443
+			},
+			{
+				"tag": "dns_resolver",
+				"type": "udp",
+				"server": "77.88.8.8"
+			}
+
+		],
+		"rules": [
+			{
+				"query_type": [
+					"PTR"
+				],
+				"server": "dns_direct"
+			},
+			{
+				"rule_set": [
+					"geosite-telegram",
+					"geosite-tiktok",
+					"geosite-gemini",
+					"geosite-youtube",
+					"geosite-discord"
+				],
+				"server": "dns_fakeip"
+			},
+			{
+				"rule_set": [
+                    "geosite-category-ru",
+                    "geosite-category-gov-ru",
+                    "geosite-category-bank-ru",
+                    "geosite-category-media-ru",
+                    "geosite-category-travel-ru",
+                    "geosite-category-medicine-ru",
+                    "geosite-category-ecommerce-ru",
+                    "geosite-category-entertainment-ru",
+                    "geosite-yandex"
+				],
+				"server": "dns_direct"
+			},
+			{
+				"action": "route",
+				"type": "logical",
+				"mode": "and", 
+				"rules": [
+					{
+						"domain_suffix": [
+							".lan",
+							".localdomain",
+							".example",
+							".invalid",
+							".localhost",
+							".test",
+							".local",
+							".home.arpa",
+							".msftconnecttest.com",
+							".msftncsi.com"
+						],
+						"invert": true
+					},
+					{
+						"query_type": ["A", "AAAA"]
+					}
+				],
+				"server": "dns_fakeip"
+			}
+		],
+		"disable_cache": false,
+		"disable_expire": false,
+		"independent_cache": true,
+		"cache_capacity": 2048,
+		"reverse_mapping": true,
+		"client_subnet": "5.255.255.0/24",
+		"final": "dns_proxy",
+		"strategy": "prefer_ipv4"
+	},
+	"route": {
+		"rule_set": [
+			{
+				"tag": "geosite-category-ru",
+				"type": "remote",
+				"format": "binary",
+				"url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-ru.srs",
+				"download_detour": "auto"
+			},
+			{
+				"tag": "geosite-category-gov-ru",
+				"type": "remote",
+				"format": "binary",
+				"url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-gov-ru.srs",
+				"download_detour": "auto"
+			},
+			{
+				"tag": "geosite-category-bank-ru",
+				"type": "remote",
+				"format": "binary",
+				"url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-bank-ru.srs",
+				"download_detour": "auto"
+			},
+			{
+				"tag": "geosite-category-media-ru",
+				"type": "remote",
+				"format": "binary",
+				"url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-media-ru.srs",
+				"download_detour": "auto"
+			},
+			{
+				"tag": "geosite-category-travel-ru",
+				"type": "remote",
+				"format": "binary",
+				"url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-retail-ru.srs",
+				"download_detour": "auto"
+			},
+			{
+				"tag": "geosite-category-medicine-ru",
+				"type": "remote",
+				"format": "binary",
+				"url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-medicine-ru.srs",
+				"download_detour": "auto"
+			},
+			{
+				"tag": "geosite-category-ecommerce-ru",
+				"type": "remote",
+				"format": "binary",
+				"url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-ecommerce-ru.srs",
+				"download_detour": "auto"
+			},
+			{
+				"tag": "geosite-category-entertainment-ru",
+				"type": "remote",
+				"format": "binary",
+				"url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-entertainment-ru.srs",
+				"download_detour": "auto"
+			},
+			{
+				"tag": "geosite-telegram",
+				"type": "remote",
+				"format": "binary",
+				"url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-telegram.srs",
+				"download_detour": "auto"
+			},
+			{
+				"tag": "geosite-youtube",
+				"type": "remote",
+				"format": "binary",
+				"url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-youtube.srs",
+				"download_detour": "auto"
+			},
+			{
+				"tag": "geosite-gemini",
+				"type": "remote",
+				"format": "binary",
+				"url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-google-gemini.srs",
+				"download_detour": "auto"
+			},
+			{
+				"tag": "geosite-tiktok",
+				"type": "remote",
+				"format": "binary",
+				"url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-tiktok.srs",
+				"download_detour": "auto"
+			},
+			{
+				"tag": "geosite-discord",
+				"type": "remote",
+				"format": "binary",
+				"url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-discord.srs",
+				"download_detour": "auto"
+			},
+			{
+				"tag": "geosite-yandex",
+				"type": "remote",
+				"format": "binary",
+				"url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-yandex.srs",
+				"download_detour": "auto"
+			},
+			{
+				"tag": "geoip-ru",
+				"type": "remote",
+				"format": "binary",
+				"url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-ru.srs",
+				"download_detour": "auto"
+			}
+		],
+		"rules": [
+			{
+				"action": "sniff"
+			},
+			{
+				"ip_cidr": ["77.88.8.8/32"],
+				"outbound": "direct"
+			},
+			{
+				"action": "hijack-dns",
+				"type": "logical",
+				"mode": "or",
+				"rules": [
+					{
+						"port": 853
+					},
+					{
+						"protocol": "dns"
+					},
+					{
+						"port": 53
+					}
+				]
+			},
+			{
+				"action": "reject",
+				"type": "logical",
+				"mode": "or",
+				"rules": [
+					{
+						"port": 853
+					},
+					{
+						"network": "udp",
+						"port": 443
+					},
+					{
+						"protocol": "stun"
+					}
+				]
+			},
+			{
+				"action": "route",
+				"ip_is_private": true,
+				"outbound": "direct"
+			},
+			{
+				"action": "route",
+				"rule_set": [
+                    "geosite-youtube",
+                    "geosite-telegram",
+                    "geosite-tiktok",
+                    "geosite-gemini",
+                    "geosite-discord"
+				],
+				"outbound": "server1"
+			},
+			{
+				"action": "route",
+				"rule_set": [
+					"geosite-category-ru",
+					"geosite-category-gov-ru",
+					"geosite-category-bank-ru",
+					"geosite-category-media-ru",
+					"geosite-category-travel-ru",
+					"geosite-category-medicine-ru",
+					"geosite-category-ecommerce-ru",
+					"geosite-category-entertainment-ru",
+					"geosite-yandex"
+				],
+				"outbound": "direct"
+			},
+			{
+				"action": "resolve",
+				"strategy": "prefer_ipv4",
+				"disable_cache": false,
+				"client_subnet": "5.255.255.0/24"
+			},
+			{
+				"action": "route",
+				"rule_set": "geoip-ru",
+				"outbound": "direct"
+			}
+		],
+		"final": "auto",
+		"default_domain_resolver": "dns_resolver",
+		"auto_detect_interface": true
+	},
+	"inbounds": [
+		{
+			"type": "tun",
+			"tag": "tun-in",
+			"address": ["172.16.0.1/30", "fdfe:dcba:9876::1/126"],
+			"auto_route": true,
+			"strict_route": true,
+			"stack": "system",
+			"udp_timeout": "3m",
+			"mtu": 1280
+		}
+	],
+	"outbounds": [
+		{
+			"tag": "auto",
+			"type": "urltest",
+			"url": "http://www.gstatic.com/generate_204",
+			"interval": "1m",
+			"tolerance": 200,
+			"interrupt_exist_connections": false,
+			"outbounds": ["server1", "server2"]
+		},
+		{
+			"tag": "server1",
+			"type": "shadowsocks",
+			"method": "2022-blake3-aes-128-gcm",
+			"password": "shadowsocks password same as on server1",
+			"detour": "shadowtls-server1",
+			"tcp_fast_open": true,
+			"udp_over_tcp": true,
+			"multiplex": {
+				"enabled": true,
+				"protocol": "smux",
+				"max_streams": 8,
+				"min_streams": 1,
+				"padding": true
+			}
+		},
+		{
+			"type": "shadowtls",
+			"tag": "shadowtls-server1",
+			"server": "server1_ip_address",
+			"server_port": 443,
+			"version": 3,
+			"password": "shadowtls user password same as on server1",
+			"tcp_fast_open": true,
+			"tls": {
+				"enabled": true,
+				"server_name": "SNI (address which you're going to use for security)",
+				"utls": {
+					"enabled": true,
+					"fingerprint": "chrome"
+				}
+			}
+		},
+		{
+			"tag": "server2",
+			"type": "shadowsocks",
+			"method": "2022-blake3-aes-128-gcm",
+			"password": "shadowsocks password same as on server",
+			"detour": "shadowtls-server2",
+			"tcp_fast_open": true,
+			"udp_over_tcp": true,
+			"multiplex": {
+				"enabled": true,
+				"protocol": "smux",
+				"max_streams": 8,
+				"min_streams": 1,
+				"padding": true
+			}
+		},
+		{
+			"type": "shadowtls",
+			"tag": "shadowtls-server2",
+			"server": "server2_ip_address",
+			"server_port": 443,
+			"version": 3,
+			"password": "shadowtls user password same as on server2",
+			"tcp_fast_open": true,
+			"tls": {
+				"enabled": true,
+				"server_name": "SNI (address which you're going to use for security)",
+				"utls": {
+					"enabled": true,
+					"fingerprint": "chrome"
+				}
+			}
+		},
+		{
+			"type": "direct",
+			"tag": "direct"
+		},
+		{
+			"type": "block",
+			"tag": "block"
+		}
+	]
+}
+
